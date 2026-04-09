@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Akhil Sports - Bapatla's #1 Sports Store. Buy premium cricket bats, footballs, badminton rackets, and fitness gear online. Fast delivery in AP & Telangana."/>
+<meta name="keywords" content="Akhil Sports, Bapatla sports shop, cricket bats online, buy sports gear Bapatla, fitness equipment, football, badminton"/>
+<meta name="author" content="Akhil Sports"/>
+<meta property="og:title" content="Akhil Sports - Bapatla"/>
+<meta property="og:description" content="Premium sports gear delivered to your doorstep."/>
+<title>Akhil Sports-Bapatla</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--red:#D42B20;--dark:#111;--yellow:#F0B429;--light:#F6F4F0;--white:#fff;--gray:#777;--border:#E5E2DC;--green:#16a34a;--blue:#2563eb}
+body{font-family:'DM Sans',sans-serif;background:var(--light);color:var(--dark);overflow-x:hidden}
+.page{display:none}.page.active{display:block;animation:fadeIn .4s ease-out forwards}
+
+/* IMAGE UPLOAD */
+.prod-img img{width:100%;height:100%;object-fit:cover;position:absolute;top:0;left:0}
+.prod-img .no-img-placeholder{font-size:13px;color:var(--gray);z-index:1;display:flex;align-items:center;justify-content:center}
+.img-upload-section{margin-bottom:20px}
+.img-upload-label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gray);display:block;margin-bottom:10px}
+.img-grid{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:8px;min-height:80px;align-items:flex-start}
+.img-thumb{position:relative;width:90px;height:90px;background:#F9F8F5;border:1px solid var(--border);overflow:hidden;flex-shrink:0}
+.img-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.img-thumb .del-img{position:absolute;top:4px;right:4px;background:var(--red);color:#fff;border:none;width:20px;height:20px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-weight:700;line-height:1}
+.add-img-btn{width:90px;height:90px;border:2px dashed var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;background:#fafafa;transition:all .2s;position:relative;overflow:hidden;flex-shrink:0}
+.add-img-btn:hover{border-color:var(--dark);background:#f0f0f0}
+.add-img-btn input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.add-img-btn .plus{font-size:26px;line-height:1;color:var(--gray)}
+.add-img-btn .addlbl{font-size:10px;color:var(--gray);margin-top:5px;letter-spacing:.5px}
+.img-note{font-size:11px;color:var(--gray);margin-top:4px}
+.img-empty-hint{width:100%;padding:20px;text-align:center;border:2px dashed var(--border);color:var(--gray);font-size:13px;background:#fafafa;display:flex;flex-direction:column;align-items:center;gap:6px}
+.img-empty-hint .cam{font-size:28px}
+.img-empty-hint span{font-size:12px}
+
+/* ===== PASSWORD FIELD ===== */
+.pass-wrap{position:relative;display:flex;align-items:center}
+.pass-wrap input{width:100%;padding-right:44px}
+.pass-eye{position:absolute;right:12px;background:none;border:none;cursor:pointer;font-size:15px;color:var(--gray);padding:4px;line-height:1;user-select:none;flex-shrink:0}
+.pass-eye:hover{color:var(--dark)}
+/* ===== FORGOT PASSWORD MODAL ===== */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9998;display:flex;align-items:center;justify-content:center}
+.modal-box{background:#fff;width:100%;max-width:420px;padding:32px;position:relative;margin:16px}
+.modal-box h3{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;margin-bottom:6px}
+.modal-box .msub{font-size:13px;color:var(--gray);margin-bottom:20px}
+.modal-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--gray);line-height:1}
+.modal-close:hover{color:var(--dark)}
+.modal-success{background:#dcfce7;border:1px solid #86efac;color:#166534;padding:12px 14px;font-size:13px;font-weight:500;margin-bottom:16px;display:none}
+.modal-success.show{display:block}
+.modal-err{background:#fee2e2;border:1px solid #fca5a5;color:#b91c1c;padding:10px 14px;font-size:13px;margin-bottom:14px;display:none}
+.modal-err.show{display:block}
+.modal-product-title{font-size:22px;margin-bottom:8px}
+.product-detail-badge{display:inline-block;padding:6px 10px;background:var(--light);color:var(--dark);font-size:12px;font-weight:700;border-radius:999px;margin-bottom:10px}
+.modal-grid{display:grid;grid-template-columns:300px 1fr;gap:32px;align-items:start}
+.detail-img-wrap{display:flex;flex-direction:column;gap:12px}
+.detail-img{width:100%;height:300px;border-radius:14px;overflow:hidden;background:#f7f5f2;position:relative;border:1px solid var(--border)}
+.detail-img img{width:100%;height:100%;object-fit:cover}
+.modal-gallery{display:flex;gap:10px;flex-wrap:wrap}
+.modal-thumb{width:56px;height:56px;border:2px solid transparent;border-radius:8px;overflow:hidden;cursor:pointer;transition:border-color .2s;background:#f7f5f2}
+.modal-thumb.active{border-color:var(--red)}
+.modal-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.wishlist-btn{position:absolute;top:10px;right:10px;background:#fff;border:none;border-radius:50%;width:32px;height:32px;display:flex;align-items:center;justify-content:center;color:var(--gray);cursor:pointer;z-index:10;box-shadow:0 4px 10px rgba(0,0,0,.15);transition:all .2s;font-size:16px}
+.wishlist-btn:hover{transform:scale(1.15);color:var(--red)}
+.wishlist-btn.active{color:var(--red)}
+.detail-meta{display:flex;flex-direction:column;gap:12px}
+.detail-meta .detail-price{font-size:20px;font-weight:700;color:var(--dark)}
+.detail-meta .detail-desc{font-size:14px;color:var(--gray);line-height:1.7}
+.detail-meta .detail-key{font-size:13px;color:var(--dark);margin-top:10px}
+.detail-meta .detail-key span{display:inline-block;background:#f8fafc;color:var(--dark);padding:6px 10px;border-radius:999px;font-size:11px;margin:3px 4px 0 0}
+.modal-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px}
+.modal-actions button{flex:1;min-width:150px}
+.cart-clear-btn{background:#374151}
+.hidden{display:none !important}
+div[id^="sub-"]:not(.hidden), div[id^="cust-"]:not(.hidden), div[id^="fp-step"]:not(.hidden){animation:fadeIn .3s ease-out forwards}
+.flex-between{display:flex;justify-content:space-between;align-items:center}
+.small-label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gray)}
+.small-link{font-size:11px;color:var(--red);cursor:pointer;font-weight:600}
+.center-text{text-align:center}
+.section-white{background:#fff}
+.section-dark{background:var(--dark);color:#fff}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-hero-title{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:1px;line-height:1;margin-bottom:16px}
+.about-text{color:#aaa;font-size:15px;line-height:1.7;margin-bottom:24px}
+.about-metrics{display:flex;gap:32px}
+.metric-card{display:flex;flex-direction:column;gap:8px}
+.metric-value{font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--yellow)}
+.metric-label{font-size:12px;color:#777;letter-spacing:1px;text-transform:uppercase}
+.info-cards{display:flex;flex-direction:column;gap:14px}
+.info-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);padding:18px 20px;display:flex;align-items:center;gap:16px}
+.info-card .info-icon{font-size:24px}
+.info-card .info-text{display:flex;flex-direction:column;gap:4px}
+.info-card .info-label{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:#666}
+.info-card .info-value{font-size:14px;color:#ddd}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#fff}
+.footer-logo em{color:var(--red);font-style:normal}
+.location-card{background:var(--light);border:1px solid var(--border);padding:16px;margin-bottom:18px}
+.location-label{font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gray);margin-bottom:12px}
+.location-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.input-inline{border:1px solid var(--border);padding:10px 12px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;width:100%}
+.box-cta{display:flex;align-items:center;gap:8px;margin:12px 0 20px;padding:12px;background:var(--light);border:1px solid var(--border)}
+.checkbox-input{width:16px;height:16px;accent-color:var(--dark);cursor:pointer}
+.checkbox-label{font-size:13px;cursor:pointer;font-weight:500}
+.pay-section{margin-top:4px}
+.save-btn{display:inline-flex;background:var(--dark);color:#fff;border:none;padding:12px 20px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:1px}
+.btn-full{width:100%}
+.logout-link{margin-top:20px;color:var(--red);cursor:pointer}
+.small-note{font-size:11px;color:#aaa;margin-top:16px;text-align:center}
+.modal-success-block{text-align:center;padding:16px 0}
+.modal-success-icon{font-size:48px;margin-bottom:16px}
+.modal-success-title{margin-bottom:8px}
+.modal-success-copy{margin-bottom:24px}
+.two-col-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.mt-14{margin-top:14px}
+.yellow-label{color:var(--yellow)}
+
+.auth-wrap{min-height:100vh;display:grid;grid-template-columns:1fr 1fr}
+.auth-left{background:var(--dark);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:48px;position:relative;overflow:hidden}
+.auth-left::before{content:'AS';font-family:'Bebas Neue',sans-serif;font-size:320px;color:rgba(255,255,255,.03);position:absolute;top:-40px;left:-40px;line-height:1;pointer-events:none}
+.auth-logo{font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:4px;color:#fff;margin-bottom:12px}
+.auth-logo em{color:var(--red);font-style:normal}
+.auth-tagline{font-size:13px;color:#555;letter-spacing:2px;text-transform:uppercase;margin-bottom:40px}
+.auth-pills{display:flex;flex-direction:column;gap:12px;width:100%;max-width:300px}
+.auth-pill{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);padding:14px 18px;display:flex;align-items:center;gap:12px}
+.auth-pill .icon{font-size:14px;display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.12);color:#fff}
+.auth-pill .text{font-size:13px;color:#aaa}
+.auth-right{display:flex;flex-direction:column;justify-content:center;align-items:center;padding:48px;background:var(--white)}
+@media(max-width:768px){.auth-right{padding:24px 16px}}
+.auth-card{width:100%;max-width:400px}
+.auth-tabs{display:flex;gap:0;margin-bottom:32px;border:1px solid var(--border)}
+.auth-tab{flex:1;padding:12px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;border:none;background:transparent;transition:all .2s}
+.auth-tab.active{background:var(--dark);color:#fff}
+.auth-card h2{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:1px;margin-bottom:6px}
+.auth-card p{font-size:13px;color:var(--gray);margin-bottom:28px}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:16px}
+.field label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gray)}
+.field input{border:1px solid var(--border);padding:11px 14px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
+.field input:focus{border-color:var(--dark)}
+.auth-btn{width:100%;background:var(--red);color:#fff;border:none;padding:14px;font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;margin-top:8px;transition:opacity .2s}
+.auth-btn:hover{opacity:.88}
+.auth-switch{text-align:center;margin-top:20px;font-size:13px;color:var(--gray)}
+.auth-switch a{color:var(--red);cursor:pointer;font-weight:600}
+.auth-err{background:#fee2e2;border:1px solid #fca5a5;color:#b91c1c;padding:10px 14px;font-size:13px;margin-bottom:14px;display:none}
+.auth-err.show{display:block}
+.auth-divider{display:flex;align-items:center;text-align:center;margin:16px 0;color:var(--gray);font-size:12px}
+.auth-divider::before,.auth-divider::after{content:'';flex:1;border-bottom:1px solid var(--border)}
+.auth-divider span{padding:0 10px}
+.google-btn{width:100%;background:#fff;color:var(--dark);border:1px solid var(--border);padding:12px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:background .2s;margin-bottom:16px}
+.google-btn:hover{background:#f9f9f9}
+.owner-badge{background:var(--yellow);color:var(--dark);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;display:inline-block;margin-bottom:16px}
+/* ===== TOPBAR + NAV ===== */
+.topbar{background:var(--dark);color:#aaa;font-size:11px;letter-spacing:1px;text-align:center;padding:7px;text-transform:uppercase}
+.topbar span{color:var(--yellow)}
+nav{background:var(--white);border-bottom:1px solid var(--border);padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:200;gap:12px;flex-wrap:wrap}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;cursor:pointer}
+.logo em{color:var(--red);font-style:normal}
+.nav-toggle{display:none;background:none;border:none;color:var(--dark);font-size:26px;cursor:pointer;padding:8px;line-height:1}
+.nav-links{display:flex;gap:24px;list-style:none}
+.nav-links a{font-size:13px;font-weight:500;text-decoration:none;color:var(--dark);letter-spacing:.5px;transition:color .2s;cursor:pointer}
+.nav-links a:hover,.nav-links a.active{color:var(--red)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.cart-btn{background:var(--dark);color:#fff;border:none;padding:10px 18px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;cursor:pointer;display:flex;align-items:center;gap:8px;transition:background .2s}
+.cart-btn:hover{background:var(--red)}
+.shop-tools{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:20px;flex-wrap:wrap}
+.shop-search{flex:1;min-width:220px;max-width:420px}
+.shop-search input{width:100%;border:1px solid var(--border);padding:12px 14px;border-radius:10px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
+.shop-search input:focus{border-color:var(--dark)}
+.empty-shop{padding:60px 0;text-align:center;color:var(--gray);font-size:15px}
+.cart-count{background:var(--red);color:#fff;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700}
+.user-menu{display:flex;align-items:center;gap:8px;cursor:pointer;padding:8px 12px;border:1px solid var(--border);transition:background .2s}
+.user-menu:hover{background:var(--light)}
+.user-menu .uname{font-size:13px;font-weight:500}
+.logout-btn{background:transparent;border:1px solid var(--border);padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;letter-spacing:.5px}
+.logout-btn:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
+/* ===== HERO ===== */
+.hero{background-image:linear-gradient(180deg,rgba(17,17,17,.86),rgba(17,17,17,.86)),url('https://images.unsplash.com/photo-1521412644187-c49fa049e84d?auto=format&fit=crop&w=1400&q=80');background-size:cover;background-position:center;min-height:540px;display:grid;grid-template-columns:1fr 420px;align-items:center;padding:60px 32px;overflow:hidden;position:relative}
+.hero::after{content:'';position:absolute;right:0;top:0;bottom:0;width:420px;background:linear-gradient(135deg,rgba(17,17,17,.95),rgba(28,28,28,.88))}
+.htag{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--yellow);margin-bottom:14px}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:86px;line-height:.9;color:#fff;letter-spacing:2px;margin-bottom:20px}
+.hero h1 em{color:var(--red);font-style:normal;display:block}
+.hero p{color:#ddd;font-size:15px;line-height:1.7;max-width:420px;margin-bottom:32px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-red{background:var(--red);color:#fff;border:none;padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:opacity .2s}
+.btn-red:hover{opacity:.88}
+.btn-dark{background:var(--dark);color:#fff;border:none;padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:opacity .2s}
+.btn-dark:hover{opacity:.8}
+.btn-outline-w{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35);padding:13px 28px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer}
+.hero-right{position:relative;z-index:1;display:grid;gap:24px;justify-items:center;}
+.hero-visual{width:100%;max-width:420px;border-radius:28px;overflow:hidden;box-shadow:0 32px 70px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.08)}
+.hero-visual img{display:block;width:100%;height:auto;}
+.sport-pills{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;padding:20px 16px 0}
+.pill{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);padding:8px 16px;font-size:12px;color:#eee;letter-spacing:1px;text-transform:uppercase;font-weight:500;cursor:pointer;transition:all .2s;font-family:'Barlow Condensed',sans-serif}
+.pill:hover,.pill.sel{background:var(--red);border-color:var(--red);color:#fff}
+/* ===== TICKER ===== */
+.ticker{background:var(--red);padding:9px 0;overflow:hidden;white-space:nowrap}
+.tick-in{display:inline-block;animation:tick 22s linear infinite}
+.tick-in span{font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;margin:0 36px}
+.tick-in span::before{content:'★  '}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* ===== SECTIONS ===== */
+.sec{padding:56px 32px}
+.sec-top{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:36px}
+.sec-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:6px}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:1px;line-height:1}
+.view-all{font-size:13px;font-weight:600;color:var(--red);cursor:pointer;text-decoration:underline;white-space:nowrap}
+/* ===== CATS ===== */
+.cats-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
+.cat-card{background:var(--dark);padding:32px 16px;cursor:pointer;text-align:center;transition:transform .2s,background .2s;position:relative;overflow:hidden;color:#fff}
+.cat-card::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(17,17,17,.45),rgba(17,17,17,.8));opacity:1;transition:opacity .2s}
+.cat-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transition:transform .2s}
+.cat-card:hover{transform:translateY(-4px)}
+.cat-card:hover::after{transform:scaleX(1)}
+.cat-card:hover::before{opacity:.7}
+.cat-card .cat-e,.cat-card .cat-n,.cat-card .cat-c{position:relative;z-index:1}
+.cat-e{font-size:32px;margin-bottom:12px;display:block}
+.cat-n{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#fff;margin-bottom:4px}
+.cat-c{font-size:11px;color:#eee}
+.cat-card:nth-child(1){background-image:url('https://images.unsplash.com/photo-1593341646782-e0b495cff86d?auto=format&fit=crop&w=900&q=80');background-size:cover;background-position:center}
+.cat-card:nth-child(2){background-image:url('https://images.unsplash.com/photo-1579952363873-27f3bade9f55?auto=format&fit=crop&w=900&q=80');background-size:cover;background-position:center}
+.cat-card:nth-child(3){background-image:url('https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=900&q=80');background-size:cover;background-position:center}
+.cat-card:nth-child(4){background-image:url('https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=80');background-size:cover;background-position:center}
+.cat-card:nth-child(5){background-image:url('https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=900&q=80');background-size:cover;background-position:center}
+/* ===== PRODUCTS ===== */
+.filter-bar{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap}
+.filt-btn{background:var(--white);border:1px solid var(--border);padding:8px 18px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.filt-btn:hover,.filt-btn.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+.products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.prod-card{background:var(--white);border:1px solid var(--border);cursor:pointer;transition:transform .2s,box-shadow .2s;position:relative}
+.prod-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.1)}
+.prod-img{height:190px;display:flex;align-items:center;justify-content:center;font-size:64px;background:#F9F8F5;position:relative;overflow:hidden}
+.badge{position:absolute;top:10px;left:10px;padding:3px 10px;font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase}
+.badge.sale{background:var(--red);color:#fff}
+.badge.new{background:var(--dark);color:#fff}
+.badge.hot{background:var(--yellow);color:var(--dark)}
+.prod-info{padding:14px}
+.prod-name{font-size:14px;font-weight:600;margin-bottom:3px;line-height:1.3}
+.prod-sub{font-size:12px;color:var(--gray);margin-bottom:10px}
+.prod-price{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:700;color:var(--dark)}
+.prod-old{font-size:12px;color:var(--gray);text-decoration:line-through;margin-left:6px;font-weight:400;font-family:'DM Sans',sans-serif}
+.add-cart-btn{display:block;width:100%;background:var(--dark);color:#fff;border:none;padding:11px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;cursor:pointer;margin-top:12px;transition:background .2s}
+.add-cart-btn:hover{background:var(--red)}
+.add-cart-btn:disabled, .checkout-btn:disabled, .auth-btn:disabled { opacity: 0.7; cursor: not-allowed; pointer-events: none; }
+/* ===== CART ===== */
+.cart-page{padding:40px 32px;max-width:960px;margin:0 auto}
+.cart-page h2{font-family:'Bebas Neue',sans-serif;font-size:44px;margin-bottom:32px;letter-spacing:1px}
+.cart-empty{text-align:center;padding:80px 20px;color:var(--gray)}
+.cart-empty .big-e{font-size:64px;margin-bottom:16px}
+.cart-empty p{font-size:15px;margin-bottom:24px}
+.cart-layout{display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start}
+.cart-items{display:flex;flex-direction:column;gap:12px}
+.cart-item{background:var(--white);border:1px solid var(--border);padding:16px;display:grid;grid-template-columns:80px 1fr auto;gap:16px;align-items:center}
+.ci-img{width:80px;height:80px;background:#F9F8F5;display:flex;align-items:center;justify-content:center;font-size:36px;position:relative;overflow:hidden}
+.ci-name{font-size:14px;font-weight:600;margin-bottom:3px}
+.ci-sub{font-size:12px;color:var(--gray);margin-bottom:8px}
+.qty-ctrl{display:flex;align-items:center}
+.qty-ctrl button{width:28px;height:28px;border:1px solid var(--border);background:var(--white);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.qty-ctrl span{width:36px;height:28px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600}
+.ci-price{text-align:right}
+.ci-price .price{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:700}
+.ci-remove{font-size:11px;color:var(--gray);cursor:pointer;text-decoration:underline;margin-top:4px;display:block}
+.order-summary{background:var(--white);border:1px solid var(--border);padding:24px;position:sticky;top:80px}
+.os-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;margin-bottom:20px}
+.os-row{display:flex;justify-content:space-between;font-size:14px;margin-bottom:10px;color:var(--gray)}
+.os-row.total{font-size:16px;font-weight:600;color:var(--dark);border-top:1px solid var(--border);padding-top:12px;margin-top:4px}
+.promo-row{display:flex;gap:8px;margin:16px 0}
+.promo-row input{flex:1;border:1px solid var(--border);padding:9px 12px;font-size:13px;outline:none}
+.promo-row button{background:var(--dark);color:#fff;border:none;padding:9px 16px;font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;cursor:pointer}
+.checkout-btn{display:block;width:100%;background:var(--red);color:#fff;border:none;padding:15px;font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;margin-top:16px;transition:opacity .2s}
+.checkout-btn:hover{opacity:.88}
+.pay-icons{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
+.pay-icon{background:var(--light);border:1px solid var(--border);padding:5px 10px;font-size:11px;font-weight:600;color:var(--gray)}
+/* ===== CHECKOUT ===== */
+.checkout-page{padding:40px 32px;max-width:960px;margin:0 auto}
+.checkout-page h2{font-family:'Bebas Neue',sans-serif;font-size:44px;margin-bottom:32px;letter-spacing:1px}
+.checkout-layout{display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start}
+.checkout-form{background:var(--white);border:1px solid var(--border);padding:28px}
+.form-sec-title{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}
+.form-row.full{grid-template-columns:1fr}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gray)}
+.form-group input,.form-group select{border:1px solid var(--border);padding:10px 12px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
+.form-group input:focus{border-color:var(--dark)}
+.pay-opts{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.pay-opt{display:flex;align-items:center;gap:12px;border:1px solid var(--border);padding:14px 16px;cursor:pointer;transition:border-color .2s}
+.pay-opt.sel{border-color:var(--dark);background:#fafafa}
+.pay-opt input[type=radio]{accent-color:var(--dark);width:16px;height:16px}
+.pay-opt-label{font-size:14px;font-weight:500}
+.pay-opt-sub{font-size:12px;color:var(--gray)}
+/* ===== SUCCESS ===== */
+.success-page{padding:80px 32px;text-align:center;max-width:540px;margin:0 auto}
+.success-icon{width:72px;height:72px;background:#E8F5E9;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 24px}
+.success-page h2{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:1px;margin-bottom:12px}
+.success-page p{color:var(--gray);font-size:15px;line-height:1.7;margin-bottom:28px}
+.order-id-box{background:var(--light);border:1px solid var(--border);padding:16px;font-family:'Barlow Condensed',sans-serif;font-size:18px;letter-spacing:2px;margin-bottom:28px}
+.order-summary-success{background:var(--light);border:1px solid var(--border);padding:20px;margin-bottom:28px;text-align:left;max-width:400px;margin-left:auto;margin-right:auto;border-radius:8px}
+.order-summary-success h4{font-size:16px;margin-bottom:12px;font-weight:600}
+.order-summary-success .item{font-size:14px;margin-bottom:4px}
+/* ===== CUSTOMER DASHBOARD ===== */
+.cust-dash{padding:40px 32px;max-width:960px;margin:0 auto}
+.cust-dash h2{font-family:'Bebas Neue',sans-serif;font-size:44px;letter-spacing:1px;margin-bottom:8px}
+.cust-dash .sub{font-size:14px;color:var(--gray);margin-bottom:32px}
+.dash-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px}
+.stat-card{background:var(--white);border:1px solid var(--border);padding:20px;text-align:center}
+.stat-card .num{font-family:'Bebas Neue',sans-serif;font-size:40px;letter-spacing:1px;color:var(--dark)}
+.stat-card .lbl{font-size:12px;color:var(--gray);letter-spacing:1px;text-transform:uppercase}
+.sec-box{background:var(--white);border:1px solid var(--border);padding:24px;margin-bottom:20px}
+.sec-box h3{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.order-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--border)}
+.order-row:last-child{border-bottom:none}
+.order-row .oid{font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;letter-spacing:1px}
+.order-row .odate{font-size:12px;color:var(--gray)}
+.order-row .oprice{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700}
+.status-badge{padding:4px 12px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif}
+.status-badge.delivered{background:#dcfce7;color:#16a34a}
+.status-badge.shipped{background:#dbeafe;color:#1d4ed8}
+.status-badge.processing{background:#fef9c3;color:#a16207}
+.status-badge.pending{background:#f1f5f9;color:#475569}
+.status-badge.return_requested{background:#fee2e2;color:#991b1b}
+.status-badge.returned{background:#f1f5f9;color:#475569;text-decoration:line-through}
+.prof-img-wrap{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.prof-avatar{width:70px;height:70px;border-radius:50%;background:var(--light);border:2px solid var(--border);object-fit:cover;display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--gray);overflow:hidden}
+.prof-avatar img{width:100%;height:100%;object-fit:cover}
+.prof-upload-btn{background:#fff;border:1px solid var(--border);padding:8px 12px;font-size:12px;font-weight:600;cursor:pointer;border-radius:4px;position:relative;transition:background .2s}
+.prof-upload-btn:hover{background:var(--light)}
+.prof-upload-btn input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.return-btn{background:transparent;color:var(--red);border:1px solid var(--red);padding:4px 10px;font-size:11px;font-weight:600;cursor:pointer;margin-top:8px;font-family:'DM Sans',sans-serif;transition:all .2s;border-radius:4px}
+.return-btn:hover{background:var(--red);color:#fff}
+/* ===== OWNER DASHBOARD ===== */
+.owner-dash{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
+.sidebar{background:var(--dark);padding:24px 0;position:sticky;top:0;height:100vh;overflow-y:auto;z-index:1000}
+.sb-toggle{display:none;background:var(--red);color:#fff;border:none;padding:10px;width:100%;font-family:'Barlow Condensed',sans-serif;font-weight:700;cursor:pointer}
+.sb-logo{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:3px;color:#fff;padding:0 20px;margin-bottom:6px}
+.sb-logo em{color:var(--red);font-style:normal}
+.sb-sub{font-size:10px;color:#555;letter-spacing:1px;text-transform:uppercase;padding:0 20px;margin-bottom:28px}
+.sb-nav-header{display:flex;align-items:center;justify-content:space-between;padding-right:10px}
+.sb-close{display:none;background:none;border:none;color:#fff;font-size:20px;cursor:pointer}
+@media(max-width:768px){
+  .sb-nav-header{margin-bottom:20px}
+  .sb-close{display:block}
+}
+.sb-section{font-size:10px;color:#444;letter-spacing:2px;text-transform:uppercase;padding:0 20px;margin-bottom:8px;margin-top:20px}
+.sb-link{display:flex;align-items:center;gap:10px;padding:10px 20px;font-size:13px;color:#999;cursor:pointer;transition:all .2s;border-left:3px solid transparent}
+.sb-link:hover{background:rgba(255,255,255,.05);color:#fff}
+.sb-link.active{background:rgba(212,43,32,.15);color:#fff;border-left-color:var(--red)}
+.sb-link .ic{font-size:16px;width:20px;text-align:center}
+.dash-main{background:var(--light);padding:32px}
+.dash-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+.dash-header h2{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:1px}
+.dash-header .date{font-size:13px;color:var(--gray)}
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:28px}
+.stat-box{background:var(--white);border:1px solid var(--border);padding:20px}
+.stat-box .s-val{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:1px;line-height:1;margin-bottom:4px}
+.stat-box .s-lbl{font-size:12px;color:var(--gray);letter-spacing:1px;text-transform:uppercase}
+.stat-box .s-chg{font-size:12px;margin-top:6px}
+.stat-box .s-chg.up{color:var(--green)}
+.stat-box .s-chg.dn{color:var(--red)}
+.dash-panel{background:var(--white);border:1px solid var(--border);padding:24px;margin-bottom:20px}
+.dash-panel h3{font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.dash-panel h3 a{font-size:12px;color:var(--red);cursor:pointer;font-weight:600;text-decoration:underline;letter-spacing:0}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;padding:8px 12px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--gray);border-bottom:1px solid var(--border)}
+td{padding:12px;border-bottom:1px solid var(--border);vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafafa}
+.tbl-badge{padding:3px 10px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif}
+/* product form */
+.prod-form{background:var(--white);border:1px solid var(--border);padding:28px;margin-bottom:20px}
+.prod-form h3{font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:20px}
+.pf-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.pf-grid.full{grid-template-columns:1fr}
+.pf-group{display:flex;flex-direction:column;gap:5px}
+.pf-group label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gray)}
+.pf-group input,.pf-group select,.pf-group textarea{border:1px solid var(--border);padding:10px 12px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
+.pf-group input:focus,.pf-group select:focus{border-color:var(--dark)}
+.pf-group textarea{height:80px;resize:none}
+.pf-btns{display:flex;gap:10px;margin-top:8px}
+.save-btn{background:var(--dark);color:#fff;border:none;padding:11px 24px;font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;letter-spacing:1px;cursor:pointer;transition:background .2s}
+.save-btn:hover{background:var(--red)}
+.cancel-btn{background:transparent;border:1px solid var(--border);padding:11px 20px;font-size:14px;cursor:pointer}
+/* chart bars */
+.chart-bars{display:flex;align-items:flex-end;gap:8px;height:120px;padding-top:8px}
+.bar-wrap{display:flex;flex-direction:column;align-items:center;gap:4px;flex:1}
+.bar{background:var(--red);width:100%;transition:height .3s;min-height:4px}
+.bar-lbl{font-size:10px;color:var(--gray);letter-spacing:.5px}
+.bar-val{font-size:10px;font-weight:600;color:var(--dark)}
+/* notifications */
+.notif-dot{width:8px;height:8px;background:var(--red);border-radius:50%;display:inline-block;margin-left:6px}
+/* ===== FOOTER ===== */
+footer{background:var(--dark);padding:48px 32px 24px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+.footer-brand p{color:#777;font-size:13px;line-height:1.7;max-width:220px;margin-top:12px}
+.footer-col h4{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#fff;margin-bottom:14px}
+.footer-col a{display:block;color:#777;font-size:13px;text-decoration:none;margin-bottom:8px;cursor:pointer;transition:color .2s}
+.footer-col a:hover{color:var(--yellow)}
+.footer-bottom{border-top:1px solid #222;padding-top:20px;display:flex;justify-content:space-between}
+.footer-bottom p{font-size:12px;color:#555}
+/* ===== TOAST ===== */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--dark);color:#fff;padding:14px 20px;font-size:13px;font-weight:500;z-index:9999;transform:translateY(100px);opacity:0;transition:all .3s;border-left:3px solid var(--yellow)}
+.toast.show{transform:translateY(0);opacity:1}
+.toast .t-item{font-size:16px;color:var(--yellow);display:inline-block;margin-right:6px}
+/* ===== ICON ANIMATIONS ===== */
+.auth-pill .icon{transition:all .3s cubic-bezier(0.175,0.885,0.32,1.275)}
+.auth-pill:hover .icon{transform:scale(1.2) rotate(-10deg);background:var(--red)}
+.cart-btn i,.user-menu i,.sb-link .ic i,.google-btn img{transition:transform .3s ease}
+.cart-btn:hover i{transform:scale(1.15) translateX(-2px)}
+.user-menu:hover i,.sb-link:hover .ic i,.google-btn:hover img{transform:scale(1.2)}
+.modal-close i,.sb-close i{transition:transform .3s ease}
+.modal-close:hover i,.sb-close:hover i{transform:rotate(90deg) scale(1.1)}
+.del-img i{transition:transform .3s ease}
+.del-img:hover i{transform:scale(1.2) rotate(90deg)}
+.saved-addr-card button i{transition:transform .3s ease}
+.saved-addr-card button:hover i{transform:scale(1.2) rotate(-15deg);color:var(--red)}
+.ci-remove i{transition:transform .2s ease;display:inline-block}
+.ci-remove:hover i{transform:scale(1.2) rotate(-15deg);color:var(--red)}
+.empty-state-icon i{animation:floatIcon 3s ease-in-out infinite}
+@keyframes floatIcon{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .auth-wrap{grid-template-columns:1fr}
+  .auth-left{display:none}
+  .hero{grid-template-columns:1fr;padding:40px 16px}
+  .hero::after{display:none}
+  .hero h1{font-size:60px}
+  .hero-right{display:none}
+  .sec{padding:36px 16px}
+  .cats-grid{grid-template-columns:repeat(3,1fr)}
+  .products-grid{grid-template-columns:repeat(2,1fr)}
+  .cart-layout,.checkout-layout{grid-template-columns:1fr}
+  .modal-grid{grid-template-columns:1fr}
+  .detail-img{height:260px}
+  .owner-dash{grid-template-columns:1fr}
+  .sidebar{height:auto;position:sticky;top:0}
+  .sb-toggle{display:block}
+  .sb-nav{display:none;background:var(--dark);position:fixed;top:0;left:0;width:260px;height:100vh;padding-top:20px;box-shadow:10px 0 30px rgba(0,0,0,0.5)}
+  .sb-nav.active{display:block}
+  .stats-row{grid-template-columns:repeat(2,1fr)}
+  .dash-grid{grid-template-columns:1fr}
+  footer{padding:32px 16px 20px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  nav{padding:0 16px}
+  .nav-toggle{display:block}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:64px;left:0;right:0;background:var(--white);padding:16px 20px;gap:12px;box-shadow:0 20px 40px rgba(0,0,0,.08);z-index:250}
+  .nav-links.active{display:flex}
+  .nav-right{width:100%;justify-content:flex-end}
+  .cart-page,.checkout-page{padding:24px 16px}
+  .cust-dash{padding:24px 16px}
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;700&family=DM+Sans:wght@400;500;600;700&display=swap');
+</style>
+</head>
+<body>
+
+<!-- ==================== LOGIN PAGE ==================== -->
+<div class="page active" id="page-login">
+  <div class="auth-wrap">
+    <div class="auth-left">
+      <div class="auth-logo">AKHIL <em>SPORTS</em></div>
+      <div class="auth-tagline">Bapatla's #1 Sports Store</div>
+      <div class="auth-pills">
+        <div class="auth-pill"><i class="fa-solid fa-trophy icon"></i><span class="text">Top brands — SS, SG, Yonex, Nike</span></div>
+        <div class="auth-pill"><i class="fa-solid fa-truck-fast icon"></i><span class="text">Fast delivery across AP & Telangana</span></div>
+        <div class="auth-pill"><i class="fa-solid fa-credit-card icon"></i><span class="text">UPI, Card & Cash on Delivery</span></div>
+        <div class="auth-pill"><i class="fa-solid fa-baseball-bat-ball icon"></i><span class="text">500+ products — all sports covered</span></div>
+      </div>
+    </div>
+    <div class="auth-right">
+      <div class="auth-card">
+        <div id="auth-customer">
+          <h2>Welcome</h2>
+          <p>Login to your account or create a new one</p>
+          <div class="auth-err" id="cust-err">Incorrect email or password.</div>
+          <div id="cust-login-form">
+            <div class="field"><label>Email</label><input type="email" id="cust-email" placeholder="your@email.com"/></div>
+            <div class="field">
+              <div class="flex-between">
+                <label class="small-label">Password</label>
+                <a onclick="showForgotModal('customer')" class="small-link">Forgot Password?</a>
+              </div>
+              <div class="pass-wrap">
+                <input type="password" id="cust-pass" placeholder="••••••••"/>
+                <button type="button" class="pass-eye" onclick="togglePass('cust-pass',this)"><i class="fa-regular fa-eye"></i></button>
+              </div>
+            </div>
+        <div class="auth-divider"><span>or</span></div>
+        <button class="google-btn" onclick="googleLogin()">
+          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="G" width="18" height="18"/> Continue with Google
+        </button>
+            <button class="auth-btn" onclick="custLogin()">Login to Shop</button>
+            <p class="auth-switch">New customer? <a onclick="showCustRegister()">Create account</a></p>
+          </div>
+          <div id="cust-reg-form" class="hidden">
+            <div class="field"><label>Full Name</label><input type="text" id="reg-name" placeholder="Ravi Kumar"/></div>
+            <div class="field"><label>Email</label><input type="email" id="reg-email" placeholder="your@email.com"/></div>
+            <div class="field"><label>Phone <span style="font-size:11px;color:var(--gray)">(Optional)</span></label><input type="tel" id="reg-phone" placeholder="+91 9876543210"/></div>
+            <div class="field"><label>Password</label>
+              <div class="pass-wrap">
+                <input type="password" id="reg-pass" placeholder="Create password"/>
+                <button type="button" class="pass-eye" onclick="togglePass('reg-pass',this)"><i class="fa-regular fa-eye"></i></button>
+              </div>
+            </div>
+        <div class="auth-divider"><span>or</span></div>
+        <button class="google-btn" onclick="googleLogin()">
+          <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="G" width="18" height="18"/> Continue with Google
+        </button>
+            <button class="auth-btn" onclick="custRegister()">Create Account</button>
+            <p class="auth-switch">Already have account? <a onclick="showCustLogin()">Login</a></p>
+          </div>
+        </div>
+
+        <!-- Discrete Admin Link -->
+        <div style="text-align:center; margin-top:40px; padding-top:20px; border-top:1px solid var(--border);">
+          <a onclick="showPage('page-owner-login')" style="font-size:12px; color:var(--gray); cursor:pointer; font-weight:600;">Store Owner Login →</a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== OWNER LOGIN PAGE (SEPARATE) ==================== -->
+<div class="page" id="page-owner-login">
+  <div class="auth-wrap" style="grid-template-columns: 1fr; background: var(--light);">
+    <div class="auth-right" style="padding:48px 16px; background: transparent;">
+      <div class="auth-card" style="margin: 0 auto; background: var(--white); padding: 40px; border: 1px solid var(--border); box-shadow: 0 10px 30px rgba(0,0,0,0.05);">
+        <div class="owner-badge">Owner Access</div>
+        <h2>Owner Login</h2>
+        <p>Admin access to manage your store catalogue and orders.</p>
+        <div class="auth-err" id="owner-err">Incorrect username or password.</div>
+        <div class="field"><label>Username</label><input type="text" id="owner-user" placeholder="admin"/></div>
+        <div class="field">
+          <div class="flex-between">
+            <label class="small-label">Password</label>
+            <a onclick="showForgotModal('owner')" class="small-link">Forgot Password?</a>
+          </div>
+          <div class="pass-wrap">
+            <input type="password" id="owner-pass" placeholder="••••••••"/>
+            <button type="button" class="pass-eye" onclick="togglePass('owner-pass',this)"><i class="fa-regular fa-eye"></i></button>
+          </div>
+        </div>
+        <button class="auth-btn" style="background:var(--dark);" onclick="ownerLogin()">Access Dashboard</button>
+        <p class="small-note">Demo: username <strong>admin</strong> · password <strong>akhil123</strong></p>
+        <div style="text-align:center; margin-top:24px;">
+          <a onclick="showPage('page-login')" style="font-size:12px; color:var(--gray); cursor:pointer; font-weight:600;">← Back to Store</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== FORGOT PASSWORD MODAL ==================== -->
+<div id="forgot-modal" class="hidden">
+  <div class="modal-overlay" onclick="closeForgotModal(event)">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeForgotModal()"><i class="fa-solid fa-xmark"></i></button>
+
+      <!-- STEP 1: Enter email / username -->
+      <div id="fp-step1">
+        <h3>Forgot Password?</h3>
+        <p class="msub" id="fp-step1-sub">Please enter the email you registered with</p>
+        <div class="modal-err" id="fp-err">Email / Username not found.</div>
+        <div class="field" id="fp-field1-wrap">
+          <label id="fp-label1">Email</label>
+          <input type="text" id="fp-input1" placeholder="your@email.com"/>
+        </div>
+        <button class="auth-btn" onclick="fpStep1()">Next →</button>
+      </div>
+
+      <!-- STEP 2: Security question -->
+      <div id="fp-step2" class="hidden">
+        <h3>Security Check</h3>
+        <p class="msub" id="fp-question-text"></p>
+        <div class="modal-err" id="fp-err2">Answer is incorrect. Please provide the phone number you registered with.</div>
+        <div class="field">
+          <label>Your Answer</label>
+          <input type="text" id="fp-answer" placeholder="Please enter your answer"/>
+        </div>
+        <button class="auth-btn" onclick="fpStep2()">Verify →</button>
+        <p class="auth-switch mt-14"><a onclick="fpBackStep1()">← Back</a></p>
+      </div>
+
+      <!-- STEP 3: New password -->
+      <div id="fp-step3" class="hidden">
+        <h3>New Password</h3>
+        <p class="msub">Please set your new password</p>
+        <div class="modal-err" id="fp-err3">Passwords do not match.</div>
+        <div class="field">
+          <label>New Password</label>
+          <div class="pass-wrap">
+            <input type="password" id="fp-newpass" placeholder="New password"/>
+            <button type="button" class="pass-eye" onclick="togglePass('fp-newpass',this)"><i class="fa-regular fa-eye"></i></button>
+          </div>
+        </div>
+        <div class="field">
+          <label>Confirm Password</label>
+          <div class="pass-wrap">
+            <input type="password" id="fp-confirmpass" placeholder="Confirm password"/>
+            <button type="button" class="pass-eye" onclick="togglePass('fp-confirmpass',this)"><i class="fa-regular fa-eye"></i></button>
+          </div>
+        </div>
+        <button class="auth-btn" onclick="fpStep3()">Reset Password ✓</button>
+      </div>
+
+      <!-- STEP 4: Success -->
+      <div id="fp-step4" class="hidden">
+        <div class="modal-success-block">
+          <div class="modal-success-icon" style="color:var(--green)"><i class="fa-solid fa-circle-check"></i></div>
+          <h3 class="modal-success-title">Password Reset!</h3>
+          <p class="msub modal-success-copy">Your password has been successfully reset. Now you can login with your new password.</p>
+          <button class="auth-btn" onclick="closeForgotModal()">Go to Login →</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="product-modal" class="hidden">
+  <div class="modal-overlay" onclick="closeProductModal(event)">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeProductModal()"><i class="fa-solid fa-xmark"></i></button>
+      <div id="product-modal-content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== MAIN STORE ==================== -->
+<div class="page" id="page-store">
+  <div class="topbar">Free delivery above ₹999 &nbsp;|&nbsp; <span>COD Available</span> &nbsp;|&nbsp; Bapatla's #1 Sports Store</div>
+  <nav>
+    <div class="logo" onclick="goTo('home')">AKHIL <em>SPORTS</em></div>
+    <button class="nav-toggle" onclick="toggleNav()" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+    <ul class="nav-links">
+      <li><a onclick="goTo('home')" id="nav-home" class="active">Home</a></li>
+      <li><a onclick="goTo('shop')" id="nav-shop">Shop</a></li>
+      <li><a onclick="goTo('myorders')" id="nav-myorders">My Orders</a></li>
+      <li><a onclick="goTo('tracking')" id="nav-tracking">Track Order</a></li>
+    </ul>
+    <div class="nav-right">
+      <button class="cart-btn" onclick="goTo('cart')"><i class="fa-solid fa-cart-shopping"></i> Cart <span class="cart-count" id="cart-count">0</span></button>
+      <div class="user-menu" onclick="goTo('myorders')"><span class="uname" id="user-display"><i class="fa-regular fa-user"></i> Account</span></div>
+      <button class="logout-btn" onclick="doLogout()">Logout</button>
+    </div>
+  </nav>
+
+  <!-- HOME -->
+  <div id="sub-home">
+    <section class="hero">
+      <div>
+        <p class="htag">Bapatla's Favourite Sports Store</p>
+        <h1>PLAY<br>HARD.<br><em>WIN.</em></h1>
+        <p>Premium sports gear, kits & equipment for every sport. Delivered to your doorstep.</p>
+        <div class="hero-btns">
+          <button class="btn-red" onclick="goTo('shop')">Shop Now</button>
+          <button class="btn-outline-w" onclick="goTo('shop')">All Categories</button>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-visual"><img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=900&q=80" alt="A selection of sports equipment"/></div>
+        <div class="sport-pills">
+          <div class="pill sel">Cricket </div><div class="pill">Football </div><div class="pill">Badminton </div>
+          <div class="pill">Basketball </div><div class="pill">Tennis </div><div class="pill">Fitness </div>
+          <div class="pill">Boxing </div><div class="pill">Swimming </div><div class="pill">Running </div>
+        </div>
+      </div>
+    </section>
+    <div class="ticker"><div class="tick-in"><span>Cricket Bats</span><span>Football Kits</span><span>Badminton Rackets</span><span>Sports Shoes</span><span>Gym Equipment</span><span>Boxing Gloves</span><span>Tennis Rackets</span><span>Swimming Gear</span><span>Cricket Bats</span><span>Football Kits</span><span>Badminton Rackets</span><span>Sports Shoes</span><span>Gym Equipment</span><span>Boxing Gloves</span><span>Tennis Rackets</span><span>Swimming Gear</span></div></div>
+    <section class="sec section-white">
+      <div class="sec-top"><div><p class="sec-label">Browse by sport</p><h2 class="sec-title">All Categories</h2></div><span class="view-all" onclick="goTo('shop')">View All →</span></div>
+      <div class="cats-grid">
+        <div class="cat-card" onclick="filterShop('Cricket')"><span class="cat-e"></span><div class="cat-n">Cricket</div><div class="cat-c">Bats, Pads, Balls</div></div>
+        <div class="cat-card" onclick="filterShop('Football')"><span class="cat-e"></span><div class="cat-n">Football</div><div class="cat-c">Balls, Kits, Boots</div></div>
+        <div class="cat-card" onclick="filterShop('Badminton')"><span class="cat-e"></span><div class="cat-n">Badminton</div><div class="cat-c">Rackets, Shuttles</div></div>
+        <div class="cat-card" onclick="filterShop('Fitness')"><span class="cat-e"></span><div class="cat-n">Fitness</div><div class="cat-c">Weights, Bands</div></div>
+        <div class="cat-card" onclick="filterShop('Running')"><span class="cat-e"></span><div class="cat-n">Running</div><div class="cat-c">Shoes, Gear</div></div>
+      </div>
+    </section>
+    <section class="sec">
+      <div class="sec-top"><div><p class="sec-label">Hot right now</p><h2 class="sec-title">Featured Products</h2></div><span class="view-all" onclick="goTo('shop')">View All →</span></div>
+      <div class="products-grid" id="home-products"></div>
+    </section>
+    <section class="sec section-dark" id="about-section">
+      <div class="about-grid">
+        <div>
+          <p class="sec-label yellow-label">About us</p>
+          <h2 class="about-hero-title">AKHIL SPORTS<br>BAPATLA</h2>
+          <p class="about-text">Your trusted sports equipment store in Bapatla. We carry all major sports brands with genuine products at the best prices.</p>
+          <div class="about-metrics">
+            <div class="metric-card"><div class="metric-value">500+</div><div class="metric-label">Products</div></div>
+            <div class="metric-card"><div class="metric-value">10+</div><div class="metric-label">Brands</div></div>
+            <div class="metric-card"><div class="metric-value">COD</div><div class="metric-label">Available</div></div>
+          </div>
+        </div>
+        <div class="info-cards">
+          <div class="info-card"><div class="info-icon"></div><div class="info-text"><div class="info-label">Address</div><div class="info-value">Akhil Sports, Main Road, Bapatla, AP</div></div></div>
+          <div class="info-card"><div class="info-icon"></div><div class="info-text"><div class="info-label">Phone</div><div class="info-value">+91 98765 43210</div></div></div>
+          <div class="info-card"><div class="info-icon"></div><div class="info-text"><div class="info-label">Hours</div><div class="info-value">Mon–Sat 9am–8pm · Sun 10am–6pm</div></div></div>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <div class="footer-grid">
+        <div class="footer-brand"><div class="footer-logo">AKHIL <em>SPORTS</em></div><p>Bapatla's trusted sports store. Genuine products, best prices, fast delivery.</p></div>
+        <div class="footer-col"><h4>Shop</h4><a onclick="filterShop('Cricket')">Cricket</a><a onclick="filterShop('Football')">Football</a><a onclick="filterShop('Badminton')">Badminton</a><a onclick="filterShop('Fitness')">Fitness</a></div>
+        <div class="footer-col"><h4>Account</h4><a onclick="goTo('myorders')">My Orders</a><a onclick="goTo('myorders')">My Profile</a><a onclick="doLogout()">Logout</a></div>
+        <div class="footer-col"><h4>Payment</h4><a>UPI / GPay</a><a>PhonePe</a><a>Credit / Debit Card</a><a>Cash on Delivery</a></div>
+      </div>
+      <div class="footer-bottom"><p>© 2025 Akhil Sports, Bapatla.</p><p>Made with in Bapatla</p></div>
+    </footer>
+  </div>
+
+  <!-- SHOP -->
+  <div id="sub-shop" class="hidden">
+    <section class="sec">
+      <div class="sec-top"><div><p class="sec-label">Browse all</p><h2 class="sec-title">Our Products</h2></div></div>
+      <div class="shop-tools">
+        <div class="shop-search">
+          <input type="search" id="shop-search" placeholder="Search products, categories or brands..." oninput="searchShopProducts()"/>
+        </div>
+      </div>
+      <div class="filter-bar" id="filter-bar">
+        <button class="filt-btn active" onclick="setFilter('All',this)">All</button>
+        <button class="filt-btn" onclick="setFilter('Cricket',this)"> Cricket</button>
+        <button class="filt-btn" onclick="setFilter('Football',this)"> Football</button>
+        <button class="filt-btn" onclick="setFilter('Badminton',this)"> Badminton</button>
+        <button class="filt-btn" onclick="setFilter('Basketball',this)"> Basketball</button>
+        <button class="filt-btn" onclick="setFilter('Tennis',this)"> Tennis</button>
+        <button class="filt-btn" onclick="setFilter('Fitness',this)"> Fitness</button>
+        <button class="filt-btn" onclick="setFilter('Running',this)"> Running</button>
+        <button class="filt-btn" onclick="setFilter('Boxing',this)"> Boxing</button>
+      </div>
+      <div class="products-grid" id="shop-products"></div>
+    </section>
+  </div>
+
+  <!-- CART -->
+  <div id="sub-cart" class="hidden">
+    <div class="cart-page"><h2>Shopping Cart</h2><div id="cart-content"></div></div>
+  </div>
+
+  <!-- CHECKOUT -->
+  <div id="sub-checkout" class="hidden">
+    <div class="checkout-page">
+      <h2>Checkout</h2>
+      <div class="checkout-layout">
+        <div class="checkout-form">
+
+          <!-- SAVED ADDRESSES -->
+          <p class="form-sec-title">📍 Delivery Location</p>
+          <div id="saved-addr-section" class="location-card"></div>
+
+          <!-- LOCATION PICKER -->
+          <div class="location-card">
+            <div class="location-label">📌 Select Area / Location</div>
+            <div class="location-grid">
+              <div class="form-group">
+                <label>District</label>
+                <select id="co-district" onchange="updateMandals()" class="input-inline">
+                  <option value="">-- Select District --</option>
+                  <option value="Bapatla">Bapatla</option>
+                  <option value="Guntur">Guntur</option>
+                  <option value="Krishna">Krishna</option>
+                  <option value="Prakasam">Prakasam</option>
+                  <option value="Nellore">Nellore</option>
+                  <option value="Hyderabad">Hyderabad</option>
+                  <option value="Vijayawada">Vijayawada (NTR)</option>
+                  <option value="Vishakhapatnam">Vishakhapatnam</option>
+                  <option value="Tirupati">Tirupati</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Mandal / Area</label>
+                <select id="co-mandal" onchange="updatePincode()" class="input-inline">
+                  <option value="">-- Select Mandal --</option>
+                </select>
+              </div>
+            </div>
+            <!-- Delivery zone badge -->
+            <div id="delivery-zone-badge" class="hidden"></div>
+          </div>
+
+          <!-- PERSONAL DETAILS -->
+          <p class="form-sec-title">Personal Details</p>
+          <div class="form-row"><div class="form-group"><label>First Name</label><input type="text" id="co-fname" placeholder="Ravi"/></div><div class="form-group"><label>Last Name</label><input type="text" id="co-lname" placeholder="Kumar"/></div></div>
+          <div class="form-row full"><div class="form-group"><label>Phone Number</label><input type="tel" id="co-phone" placeholder="+91 9876543210"/></div></div>
+          <div class="form-row full"><div class="form-group"><label>Email</label><input type="email" id="co-email" placeholder="email@example.com"/></div></div>
+          <div class="form-row full"><div class="form-group"><label>House No / Street / Landmark</label><input type="text" id="co-addr" placeholder="e.g. 12-3, Gandhi Road, Near Bus Stand"/></div></div>
+          <div class="form-row">
+            <div class="form-group"><label>City / Village</label><input type="text" id="co-city" placeholder="Bapatla"/></div>
+            <div class="form-group"><label>Pincode</label><input type="text" id="co-pin" placeholder="522101" maxlength="6"/></div>
+          </div>
+
+          <!-- SAVE ADDRESS CHECKBOX -->
+          <div class="box-cta">
+            <input type="checkbox" id="save-addr-cb" class="checkbox-input"/>
+            <label for="save-addr-cb" class="checkbox-label"> Save this address (you can easily select it next time)</label>
+          </div>
+
+          <div class="pay-section"><p class="form-sec-title"> Payment Method</p>
+            <div class="pay-opts">
+              <div class="pay-opt sel" onclick="selPay(this)"><input type="radio" name="pay" checked/><div><div class="pay-opt-label">UPI / PhonePe / GPay</div><div class="pay-opt-sub">Pay instantly using UPI</div></div></div>
+              <div class="pay-opt" onclick="selPay(this)"><input type="radio" name="pay"/><div><div class="pay-opt-label">Credit / Debit Card</div><div class="pay-opt-sub">Visa, Mastercard, RuPay</div></div></div>
+              <div class="pay-opt" onclick="selPay(this)"><input type="radio" name="pay"/><div><div class="pay-opt-label">Cash on Delivery</div><div class="pay-opt-sub">Pay when your order arrives</div></div></div>
+            </div>
+          </div>
+        </div>
+        <div><div id="checkout-summary" class="order-summary"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MY ORDERS (Customer Dashboard) -->
+  <div id="sub-myorders" class="hidden">
+    <div class="cust-dash">
+      <h2>My Account</h2>
+      <p class="sub" id="cust-welcome">Welcome back!</p>
+      <div class="dash-grid">
+        <div class="stat-card"><div class="num" id="co-total">3</div><div class="lbl">Total Orders</div></div>
+        <div class="stat-card"><div class="num" id="co-spent">₹5,247</div><div class="lbl">Total Spent</div></div>
+        <div class="stat-card"><div class="num">COD</div><div class="lbl">Preferred Payment</div></div>
+      </div>
+      <div class="sec-box">
+        <h3>My Orders</h3>
+        <div id="customer-orders-list"></div>
+      </div>
+      <div class="sec-box">
+        <h3>My Wishlist</h3>
+        <div id="customer-wishlist-list" class="products-grid" style="margin-top: 16px;"></div>
+      </div>
+      <div class="sec-box">
+        <h3>My Profile</h3>
+        <div class="prof-img-wrap">
+          <div class="prof-avatar" id="prof-avatar-preview"><i class="fa-regular fa-user"></i></div>
+          <label class="prof-upload-btn">
+            <i class="fa-solid fa-camera"></i> Upload Photo
+            <input type="file" accept="image/*" onchange="uploadProfileImg(this)"/>
+          </label>
+        </div>
+        <div class="two-col-grid">
+          <div class="form-group"><label>Full Name</label><input type="text" id="prof-name" class="input-inline"/></div>
+          <div class="form-group"><label>Email</label><input type="email" id="prof-email" class="input-inline"/></div>
+          <div class="form-group"><label>Phone</label><input type="tel" id="prof-phone" placeholder="+91 9876543210" class="input-inline"/></div>
+          <div class="form-group"><label>City</label><input type="text" placeholder="Bapatla" class="input-inline"/></div>
+        </div>
+        <button class="save-btn" onclick="saveProfile()">Save Profile</button>
+      </div>
+      
+      <div class="sec-box">
+        <h3>Customer Support</h3>
+        <p style="font-size: 13px; color: var(--gray); margin-bottom: 16px;">Have an issue with your order? Raise a ticket and our team will get back to you.</p>
+        <div id="customer-tickets-list" style="margin-bottom: 20px;"></div>
+        
+        <div style="background: #fafafa; border: 1px dashed var(--border); padding: 16px; border-radius: 4px;">
+          <h4 style="margin-bottom: 12px; font-size: 14px; font-family: 'DM Sans', sans-serif;">Raise a New Ticket</h4>
+          <div class="two-col-grid" style="margin-bottom: 10px;">
+            <div class="form-group">
+              <label>Issue Type</label>
+              <select id="ticket-type" class="input-inline">
+                <option value="Order Delay">Order Delay</option>
+                <option value="Damaged / Wrong Product">Damaged / Wrong Product</option>
+                <option value="Return / Refund Request">Return / Refund Request</option>
+                <option value="Other Issue">Other Issue</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom: 12px;">
+            <label>Description</label>
+            <textarea id="ticket-desc" class="input-inline" rows="3" placeholder="Please describe your issue in detail..."></textarea>
+          </div>
+          <button class="save-btn" style="background: var(--dark);" onclick="raiseTicket()"><i class="fa-solid fa-headset"></i> Submit Ticket</button>
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 32px; margin-bottom: 20px;">
+        <button onclick="doLogout()" style="background: transparent; color: var(--red); border: 2px solid var(--red); padding: 12px 32px; font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: all 0.2s;"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout from Account</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  
+  <div id="sub-tracking" class="hidden">
+    <div class="tracking-wrap sec">
+      <div class="tracking-header">
+        <h3>Track Your Order</h3>
+        <p>Real-time status of your recent orders</p>
+      </div>
+      <div id="tracking-orders-list"></div>
+    </div>
+  </div>
+  <div id="sub-success" class="hidden">
+    <div class="success-page">
+      <div class="success-icon" style="color:var(--green)"><i class="fa-solid fa-check"></i></div>
+      <h2>Order Placed!</h2>
+      <p id="thank-you-msg">Thank you! Your order has been received. We'll contact you shortly to confirm delivery.</p>
+      <div class="order-id-box" id="order-id-box">Order #AS-000000</div>
+      <div class="order-summary-success" id="order-summary-success"></div>
+      <button class="btn-red btn-full" onclick="goTo('home')">Continue Shopping</button>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== OWNER DASHBOARD ==================== -->
+<div class="page" id="page-owner">
+  <div class="owner-dash">
+    <div class="sidebar">
+      <button class="sb-toggle" id="sb-toggle-btn" onclick="document.getElementById('sb-nav').classList.toggle('active')"><i class="fa-solid fa-bars"></i> DASHBOARD MENU</button>
+      <div class="sb-nav" id="sb-nav">
+      <div class="sb-nav-header">
+        <div class="sb-logo">AKHIL <em>SPORTS</em></div>
+        <button class="sb-close" onclick="document.getElementById('sb-nav').classList.remove('active')"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="sb-sub" style="margin-top:-20px">Owner Dashboard</div>
+      <div class="sb-section">Main</div>
+      <div class="sb-link active" onclick="ownerTab('overview')"><span class="ic"><i class="fa-solid fa-chart-pie"></i></span> Overview</div>
+      <div class="sb-link" onclick="ownerTab('orders')"><span class="ic"><i class="fa-solid fa-box-open"></i></span> Orders <span class="notif-dot"></span></div>
+      <div class="sb-section">Catalogue</div>
+      <div class="sb-link" onclick="ownerTab('products')"><span class="ic"><i class="fa-solid fa-tags"></i></span> Products</div>
+      <div class="sb-link" onclick="ownerTab('addproduct')"><span class="ic"><i class="fa-solid fa-plus"></i></span> Add Product</div>
+      <div class="sb-section">Reports</div>
+      <div class="sb-link" onclick="ownerTab('sales')"><span class="ic"><i class="fa-solid fa-chart-line"></i></span> Sales Report</div>
+      <div class="sb-link" onclick="ownerTab('customers')"><span class="ic"><i class="fa-solid fa-users"></i></span> Customers</div>
+      <div class="sb-section">Settings</div>
+      <div class="sb-link" onclick="ownerTab('settings')"><span class="ic"><i class="fa-solid fa-gear"></i></span> Store Settings</div>
+      <div class="sb-link logout-link" onclick="doLogout()"><span class="ic"><i class="fa-solid fa-arrow-right-from-bracket"></i></span> Logout</div>
+    </div>
+    </div>
+    <div class="dash-main" id="owner-main"></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"><span class="t-item" id="toast-item"></span><span id="toast-msg">added to cart!</span></div>
+
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/data.js"></script>
+<script src="js/apiService.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/products.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/location.js"></script>
+<script src="js/checkout.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
