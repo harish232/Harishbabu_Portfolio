@@ -1,0 +1,550 @@
+/* Custom Styles for Cyberpunk Luxury Aesthetic */
+body {
+    background-color: #0B0F19;
+    color: #E5E7EB;
+    overflow-x: hidden;
+}
+
+/* Glassmorphism Utilities */
+.glass {
+    background: rgba(17, 25, 40, 0.75);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 1rem;
+}
+
+.glass-hover:hover {
+    border-color: rgba(6, 182, 212, 0.4);
+    /* Cyan border on hover */
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.1);
+    transform: translateY(-2px);
+    transition: all 0.3s ease;
+}
+
+/* Neon Text and Border Glows */
+.text-glow {
+    text-shadow: 0 0 10px rgba(6, 182, 212, 0.5), 0 0 20px rgba(6, 182, 212, 0.3);
+}
+
+.text-glow-cyan {
+    text-shadow: 0 0 10px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0B0F19;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1F2937;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #06B6D4;
+}
+
+/* Input glowing border */
+.input-glow:focus {
+    outline: none;
+    border-color: #06B6D4;
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+}
+
+/* Ambient Background Glow */
+.ambient-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.05) 0%, rgba(11, 15, 25, 0) 70%);
+    top: -200px;
+    left: -200px;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.ambient-glow-2 {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, rgba(11, 15, 25, 0) 70%);
+    bottom: -100px;
+    right: -100px;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Animations */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+/* Custom glowing animations for timeline */
+@keyframes glow-pulse-green {
+    0% {
+        box-shadow: 0 0 10px rgba(6, 182, 212, 0.5), 0 0 20px rgba(6, 182, 212, 0.3);
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(6, 182, 212, 0.8), 0 0 40px rgba(6, 182, 212, 0.5);
+        transform: scale(1.05);
+    }
+
+    100% {
+        box-shadow: 0 0 10px rgba(6, 182, 212, 0.5), 0 0 20px rgba(6, 182, 212, 0.3);
+        transform: scale(1);
+    }
+}
+
+.animate-glow-green {
+    animation: glow-pulse-green 3s infinite ease-in-out;
+}
+
+@keyframes glow-pulse-cyan {
+    0% {
+        box-shadow: 0 0 10px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.3);
+        transform: scale(1);
+    }
+
+    50% {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.8), 0 0 40px rgba(59, 130, 246, 0.5);
+        transform: scale(1.05);
+    }
+
+    100% {
+        box-shadow: 0 0 10px rgba(59, 130, 246, 0.5), 0 0 20px rgba(59, 130, 246, 0.3);
+        transform: scale(1);
+    }
+}
+
+.animate-glow-cyan {
+    animation: glow-pulse-cyan 3.5s infinite ease-in-out;
+}
+
+/* 3D Animations */
+@keyframes spin-glow-green {
+    0% {
+        transform: perspective(600px) rotateY(0deg) scale(1.15);
+        box-shadow: 0 0 20px rgba(6, 182, 212, 0.8);
+    }
+
+    50% {
+        transform: perspective(600px) rotateY(180deg) scale(1.15);
+        box-shadow: 0 0 40px rgba(6, 182, 212, 0.5);
+    }
+
+    100% {
+        transform: perspective(600px) rotateY(360deg) scale(1.15);
+        box-shadow: 0 0 20px rgba(6, 182, 212, 0.8);
+    }
+}
+
+.group:hover .hover-3d-spin-green {
+    animation: spin-glow-green 2s linear infinite;
+}
+
+@keyframes spin-glow-cyan {
+    0% {
+        transform: perspective(600px) rotateY(0deg) scale(1.15);
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+    }
+
+    50% {
+        transform: perspective(600px) rotateY(180deg) scale(1.15);
+        box-shadow: 0 0 40px rgba(59, 130, 246, 0.5);
+    }
+
+    100% {
+        transform: perspective(600px) rotateY(360deg) scale(1.15);
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+    }
+}
+
+.group:hover .hover-3d-spin-cyan {
+    animation: spin-glow-cyan 2s linear infinite;
+}
+
+.tilt-card {
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform 0.3s ease-out;
+}
+
+.tilt-content {
+    transform: translateZ(40px);
+    display: block;
+}
+
+/* Fade In Utility for JS */
+.fade-in-section {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    will-change: opacity, transform;
+}
+
+.fade-in-section.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+.chat-widget-btn {
+    box-shadow: 0 0 20px rgba(6, 182, 212, 0.3);
+    transition: all 0.3s ease;
+}
+
+.chat-widget-btn:hover {
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.6);
+    transform: scale(1.05);
+}
+
+.chat-window {
+    transform-origin: bottom right;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+    opacity: 0;
+    transform: scale(0.8) translateY(20px);
+    visibility: hidden;
+}
+
+.chat-window.open {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    visibility: visible;
+}
+
+.chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #1F2937;
+    border-radius: 3px;
+}
+
+.msg-ai {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    border-bottom-left-radius: 2px;
+}
+
+.msg-user {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-bottom-right-radius: 2px;
+}
+
+.typing-dot {
+    animation: typingDot 1.4s infinite ease-in-out both;
+}
+
+.typing-dot:nth-child(1) {
+    animation-delay: -0.32s;
+}
+
+.typing-dot:nth-child(2) {
+    animation-delay: -0.16s;
+}
+
+@keyframes typingDot {
+    0%,
+    80%,
+    100% {
+        transform: scale(0);
+    }
+
+    40% {
+        transform: scale(1);
+    }
+}
+
+/* SPA Section Visibility */
+.spa-section {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.spa-section.active {
+    display: block;
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Intro Boot Sequence */
+#intro-terminal {
+    transition: opacity 0.8s ease-in-out, visibility 0.8s ease-in-out;
+}
+
+.intro-cursor {
+    display: inline-block;
+    width: 10px;
+    height: 18px;
+    background-color: #10B981;
+    animation: blink 1s step-end infinite;
+    vertical-align: middle;
+    margin-left: 4px;
+}
+
+@keyframes blink {
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+body.intro-active {
+    overflow: hidden;
+}
+
+/* Ambient Shifting Mesh Gradient Background */
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+.cyber-bg-animate {
+    background: linear-gradient(-45deg, #050505, #0B0F19, #05161A, #0A0E17, #06111C);
+    background-size: 400% 400%;
+    animation: gradient-shift 20s ease infinite;
+}
+
+/* Cyberpunk Neon Text Flicker */
+@keyframes text-flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        text-shadow: 0 0 10px rgba(6, 182, 212, 0.6), 0 0 20px rgba(6, 182, 212, 0.3);
+    }
+    20%, 24%, 55% {
+        text-shadow: none;
+    }
+}
+.cyber-flicker {
+    animation: text-flicker 5s infinite alternate;
+}
+
+/* Glitch Effect on Hover */
+.glitch-hover:hover {
+    animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+}
+@keyframes glitch {
+    0% {
+        transform: translate(0);
+        text-shadow: -2px 0 #06B6D4, 2px 0 #3B82F6;
+    }
+    20% {
+        transform: translate(-1px, 1px);
+        text-shadow: 1px -1px #06B6D4, -1px 1px #3B82F6;
+    }
+    40% {
+        transform: translate(-1px, -1px);
+        text-shadow: -1px 1px #06B6D4, 1px -1px #3B82F6;
+    }
+    60% {
+        transform: translate(1px, 1px);
+        text-shadow: 1px 1px #06B6D4, -1px -1px #3B82F6;
+    }
+    80% {
+        transform: translate(1px, -1px);
+        text-shadow: -1px -1px #06B6D4, 1px 1px #3B82F6;
+    }
+    100% {
+        transform: translate(0);
+        text-shadow: -2px 0 #06B6D4, 2px 0 #3B82F6;
+    }
+}
+
+/* Shimmer Shine Effect for Primary Buttons */
+.shimmer-btn {
+    position: relative;
+    overflow: hidden;
+}
+.shimmer-btn::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -70%;
+    width: 30%;
+    height: 200%;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.25) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: rotate(30deg);
+    transition: none;
+}
+.shimmer-btn:hover::after {
+    left: 120%;
+    transition: all 0.8s ease-in-out;
+}
+
+/* Micro-floating Tech Tags */
+@keyframes tag-float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-4px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+.tech-tag-animate {
+    transition: all 0.3s ease;
+}
+.tech-tag-animate:hover {
+    border-color: rgba(6, 182, 212, 0.6);
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.2);
+    animation: tag-float 1.5s ease-in-out infinite;
+}
+
+/* Automatically apply hover animations to all tech badges in dashboard modules */
+#visual-skills span,
+#visual-projects span,
+#visual-internships span,
+#visual-certifications span {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: default;
+}
+#visual-skills span:hover,
+#visual-projects span:hover,
+#visual-internships span:hover,
+#visual-certifications span:hover {
+    border-color: rgba(6, 182, 212, 0.6) !important;
+    box-shadow: 0 0 12px rgba(6, 182, 212, 0.25);
+    transform: translateY(-4px);
+    background-color: rgba(6, 182, 212, 0.05);
+}
+
+/* Premium Custom Rotating Gradient Border Buttons */
+@property --border-angle {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
+.cyber-glow-btn {
+    --border-color-1: #06B6D4;
+    --border-color-2: #3B82F6;
+    position: relative;
+    border: 2px solid transparent;
+    background: linear-gradient(#0a0f1d, #0a0f1d) padding-box,
+                linear-gradient(var(--border-angle), var(--border-color-1), var(--border-color-2), var(--border-color-1)) border-box;
+    animation: border-rotate 4s linear infinite;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #ffffff !important;
+}
+
+@keyframes border-rotate {
+    100% {
+        --border-angle: 360deg;
+    }
+}
+
+.cyber-glow-btn:hover {
+    background: linear-gradient(rgba(6, 182, 212, 0.15), rgba(59, 130, 246, 0.15)) padding-box,
+                linear-gradient(var(--border-angle), var(--border-color-1), var(--border-color-2), var(--border-color-1)) border-box;
+    box-shadow: 0 0 25px rgba(6, 182, 212, 0.5);
+    transform: scale(1.04) translateY(-2px);
+}
+
+.cyber-glow-btn:active {
+    transform: scale(0.94) translateY(1px) !important;
+    box-shadow: 0 0 8px rgba(6, 182, 212, 0.3) !important;
+    filter: brightness(1.3);
+    transition: transform 0.04s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.04s ease-out;
+}
+
+/* Button Variants */
+.btn-cyan {
+    --border-color-1: #06B6D4;
+    --border-color-2: #22D3EE;
+    text-shadow: 0 0 8px rgba(6, 182, 212, 0.4);
+}
+.btn-blue {
+    --border-color-1: #3B82F6;
+    --border-color-2: #60A5FA;
+    text-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+}
+.btn-purple {
+    --border-color-1: #8B5CF6;
+    --border-color-2: #A78BFA;
+    text-shadow: 0 0 8px rgba(139, 92, 246, 0.4);
+}
+.btn-green {
+    --border-color-1: #10B981;
+    --border-color-2: #34D399;
+    text-shadow: 0 0 8px rgba(16, 185, 129, 0.4);
+}
+.btn-yellow {
+    --border-color-1: #F59E0B;
+    --border-color-2: #FBBF24;
+    text-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+}
+
+/* Custom Mouse Trailer Styling */
+#mouse-trailer {
+    pointer-events: none;
+    will-change: transform;
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.15);
+}
+#mouse-dot {
+    pointer-events: none;
+    will-change: transform;
+    transition: transform 0.04s ease-out, background-color 0.3s ease;
+    box-shadow: 0 0 6px rgba(6, 182, 212, 0.35);
+}
+
+/* Trailer Hover Vibe */
+.trailer-hover {
+    transform: translate3d(var(--mouse-x), var(--mouse-y), 0) translate(-50%, -50%) scale(2) !important;
+    background-color: rgba(6, 182, 212, 0.08);
+    border-color: #3B82F6 !important;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+}
+
+
+
