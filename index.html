@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Harish Babu Yarraguntla | Python Full Stack Developer</title>
+    <meta name="description"
+        content="Portfolio of Harish Babu Yarraguntla, Python Full Stack Developer transitioning from EEE to software development.">
+
+    <!-- Google Fonts: Inter for clean typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            future: {
+                hoverOnlyWhenSupported: true,
+            },
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#050505',
+                            card: 'rgba(10, 10, 10, 0.9)', // Terminal panel base
+                            accent: '#06B6D4', // Neon Cyan
+                            accent2: '#3B82F6', // Electric Blue
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Model Viewer for 3D Avatars -->
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
+</head>
+
+<body class="antialiased selection:bg-brand-accent selection:text-brand-dark relative intro-active cyber-bg-animate">
+
+    <!-- Terminal Boot Sequence Overlay -->
+    <div id="intro-terminal"
+        class="fixed inset-0 z-[1000] bg-[#0B0F19] text-green-400 font-mono p-4 sm:p-8 md:p-12 text-sm md:text-base overflow-hidden flex flex-col justify-start items-start">
+        <div id="intro-output" class="w-full max-w-4xl space-y-1 whitespace-pre-wrap"></div>
+        <div class="w-full max-w-4xl mt-1"><span id="intro-current-line"></span><span class="intro-cursor"></span></div>
+    </div>
+
+    <!-- Ambient Background Effects Removed for Terminal Look -->
+
+    <nav class="fixed w-full z-50 glass rounded-none border-t-0 border-x-0 border-b border-white/5 py-4 transition-all duration-300"
+        id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center">
+                <div class="flex-shrink-0">
+                    <a href="#" class="font-display font-bold text-xl tracking-tighter text-white group glitch-hover">
+                        HB<span class="text-brand-accent group-hover:text-glow transition-all">.</span>
+                    </a>
+                </div>
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#" onclick="showSection('home'); return false;"
+                            class="nav-link text-brand-accent border-b-2 border-brand-accent px-3 py-2 rounded-md text-sm font-medium transition-colors">Home</a>
+                        <a href="#" onclick="showSection('skills'); return false;"
+                            class="nav-link text-gray-300 hover:text-brand-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Skills</a>
+                        <a href="#" onclick="showSection('experience'); return false;"
+                            class="nav-link text-gray-300 hover:text-brand-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Internship</a>
+                        <a href="#" onclick="showSection('projects'); return false;"
+                            class="nav-link text-gray-300 hover:text-brand-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Projects</a>
+                        <a href="#" onclick="showSection('certifications'); return false;"
+                            class="nav-link text-gray-300 hover:text-brand-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Certifications</a>
+                        <a href="Harish_Babu_Resume.pdf" download="Harish_Babu_Resume.pdf"
+                            class="nav-link text-gray-300 hover:text-brand-accent transition-colors px-3 py-2 rounded-md text-sm font-medium"><i class="fas fa-download mr-1"></i>Resume</a>
+                        <a href="#" onclick="showSection('contact'); return false;"
+                            class="nav-link border border-brand-accent text-brand-accent hover:bg-brand-accent hover:text-brand-dark hover:shadow-[0_0_15px_rgba(6,182,212,0.5)] transition-all px-4 py-2 rounded-md text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" onclick="toggleMobileMenu()"
+                        class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                        aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden glass absolute w-full left-0 top-full mt-2" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#" onclick="showSection('home'); return false;"
+                    class="nav-link text-brand-accent block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#" onclick="showSection('skills'); return false;"
+                    class="nav-link text-gray-300 hover:text-brand-accent block px-3 py-2 rounded-md text-base font-medium">Skills</a>
+                <a href="#" onclick="showSection('experience'); return false;"
+                    class="nav-link text-gray-300 hover:text-brand-accent block px-3 py-2 rounded-md text-base font-medium">Internship</a>
+                <a href="#" onclick="showSection('projects'); return false;"
+                    class="nav-link text-gray-300 hover:text-brand-accent block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                <a href="#" onclick="showSection('certifications'); return false;"
+                    class="nav-link text-gray-300 hover:text-brand-accent block px-3 py-2 rounded-md text-base font-medium">Certifications</a>
+                <a href="Harish_Babu_Resume.pdf" download="Harish_Babu_Resume.pdf"
+                    class="nav-link text-gray-300 hover:text-brand-accent block px-3 py-2 rounded-md text-base font-medium"><i class="fas fa-download mr-1"></i>Resume</a>
+                <a href="#" onclick="showSection('contact'); return false;"
+                    class="nav-link text-brand-accent block px-3 py-2 rounded-md text-base font-medium">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div id="home">
+        <section id="hero"
+            class="min-h-screen flex items-center justify-center pt-20 pb-12 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
+            <!-- Abstract Tech Elements -->
+            <div class="absolute inset-0 z-0 opacity-10 pointer-events-none">
+                <div
+                    class="absolute top-1/4 left-1/4 w-px h-32 bg-gradient-to-b from-transparent via-brand-accent to-transparent">
+                </div>
+                <div
+                    class="absolute bottom-1/4 right-1/4 w-32 h-px bg-gradient-to-r from-transparent via-brand-accent2 to-transparent">
+                </div>
+            </div>
+
+            <div class="max-w-4xl mx-auto text-center z-10 fade-in-section">
+                <div
+                    class="inline-flex items-center space-x-2 bg-gray-800/50 rounded-full px-4 py-1.5 mb-8 border border-white/5">
+                    <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
+                    <span class="text-xs font-medium tracking-wide text-gray-300 uppercase">Available for New
+                        Roles</span>
+                </div>
+
+                <!-- Profile Image Removed -->
+
+                <h1 class="text-5xl md:text-7xl font-display font-bold text-white mb-6 tracking-tight leading-tight glitch-hover cyber-flicker">
+                    Harish Babu <br class="md:hidden" /> Yarraguntla
+                </h1>
+
+                <h2 class="text-lg md:text-2xl font-mono text-gray-300 mb-8 animate-float inline-block">
+                    <span class="text-brand-accent font-bold">class</span> <span
+                        class="text-brand-accent2 font-bold">Developer</span><span class="text-gray-400">(Python,
+                        Backend):</span>
+                </h2>
+
+                <div
+                    class="text-sm md:text-base text-gray-400 mb-12 max-w-2xl mx-auto leading-relaxed font-mono bg-[#0B0F19]/80 p-6 rounded-xl border border-gray-700 text-left shadow-2xl relative backdrop-blur-sm group hover:border-gray-500 transition-colors duration-300">
+                    <!-- IDE Window dots -->
+                    <div class="absolute top-3 left-4 flex space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500/80 group-hover:bg-red-500 transition-colors"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500/80 group-hover:bg-yellow-500 transition-colors">
+                        </div>
+                        <div class="w-3 h-3 rounded-full bg-green-500/80 group-hover:bg-green-500 transition-colors">
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <span class="text-brand-accent font-bold">def</span> <span
+                            class="text-brand-accent2">get_bio</span><span class="text-gray-300">(self):</span><br>
+                        <span class="text-gray-500 pl-4">"""</span><br>
+                        <span class="text-green-400 pl-4">Hands-on experience building and deploying Django-based web
+                            applications.</span><br>
+                        <span class="text-green-400 pl-4">Bridging core engineering precision with scalable backend
+                            architecture.</span><br>
+                        <span class="text-gray-500 pl-4">"""</span><br>
+                        <span class="text-brand-accent pl-4 font-bold">return</span> <span
+                            class="text-gray-300">True</span>
+                    </div>
+                    <!-- Run Bio Button -->
+                    <div class="mt-6 pt-4 border-t border-gray-700 flex flex-col items-center gap-2">
+                        <span class="text-xs text-gray-600 font-mono tracking-widest uppercase">// run to load full
+                            profile</span>
+                        <button onclick="executeBio()"
+                            class="cyber-glow-btn btn-cyan px-5 py-2 rounded-xl font-mono font-bold text-xs flex items-center gap-2">
+                            <i class="fas fa-terminal text-xs group-hover:rotate-12 transition-transform duration-300"></i>
+                            <span>▶&nbsp; Run get_bio()</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4">
+                    <a href="#" onclick="showSection('projects'); return false;"
+                        class="w-full sm:w-auto px-6 py-2.5 text-sm font-bold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 cyber-glow-btn btn-cyan">
+                        View Projects
+                    </a>
+                    
+                    <a href="Harish_Babu_Resume.pdf" download="Harish_Babu_Resume.pdf"
+                        class="w-full sm:w-auto px-6 py-2.5 text-sm font-bold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 cyber-glow-btn btn-blue">
+                        <i class="fas fa-download"></i> Download Resume
+                    </a>
+                    
+                    <button onclick="openPitchModal()"
+                        class="w-full sm:w-auto px-6 py-2.5 text-sm font-bold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 group cyber-glow-btn btn-purple">
+                        <i class="fas fa-wand-magic-sparkles group-hover:animate-pulse"></i>
+                        AI Custom Pitch
+                    </button>
+                </div>
+
+                <!-- Scroll Indicator -->
+                <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce hidden md:block">
+                    <a href="#about" class="text-gray-500 hover:text-brand-accent transition-colors">
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-24 px-4 sm:px-6 lg:px-8 bg-black/20">
+            <div class="max-w-6xl mx-auto fade-in-section">
+                <div class="flex flex-col gap-12 items-center justify-center">
+                    <div class="w-full max-w-4xl mx-auto text-center md:text-left">
+                        <div class="font-mono text-sm text-gray-500 mb-2 tracking-widest uppercase">// CORE.MODULE</div>
+                        <h2 class="text-3xl md:text-4xl font-display font-bold text-white mb-2">&lt;Architecting Logic
+                            /&gt;</h2>
+                        <h2
+                            class="text-3xl md:text-4xl font-display font-bold text-transparent bg-clip-text bg-gradient-to-r from-brand-accent to-brand-accent2 mb-6">
+                            {Engineering Solutions}</h2>
+
+                        <div
+                            class="bg-[#0B0F19]/90 p-5 md:p-6 rounded-xl border border-gray-700 shadow-[0_0_20px_rgba(0,0,0,0.5)] font-mono text-sm md:text-base leading-relaxed mb-6 group hover:border-brand-accent/50 transition-colors">
+                            <div class="flex items-center space-x-2 mb-4 border-b border-gray-800 pb-3">
+                                <i class="fas fa-terminal text-gray-500"></i>
+                                <span
+                                    class="text-gray-400 text-xs tracking-widest uppercase">~/harish/profile.json</span>
+                            </div>
+                            <div class="text-gray-300">
+                                <span class="text-brand-accent font-bold">{</span><br>
+                                <span class="pl-4 text-brand-accent2">"transition"</span>: <span
+                                    class="text-green-400">"Driven by a passion for scalable systems, I pivoted from
+                                    Electrical Engineering (EEE '25) to Software Engineering."</span>,<br>
+                                <br>
+                                <span class="pl-4 text-brand-accent2">"foundation"</span>: <span
+                                    class="text-green-400">"Rooted in hardcore analytical problem-solving and core
+                                    engineering precision."</span>,<br>
+                                <br>
+                                <span class="pl-4 text-brand-accent2">"current_role"</span>: <span
+                                    class="text-green-400">"Python Full Stack Developer"</span>,<br>
+                                <br>
+                                <span class="pl-4 text-brand-accent2">"core_stack"</span>: <span
+                                    class="text-brand-accent font-bold">[</span><br>
+                                <span class="pl-12 text-green-400">"Django ORM"</span>,<br>
+                                <span class="pl-12 text-green-400">"REST APIs"</span>,<br>
+                                <span class="pl-12 text-green-400">"Database Design"</span><br>
+                                <span class="pl-4 text-brand-accent font-bold">]</span>,<br>
+                                <br>
+                                <span class="pl-4 text-brand-accent2">"objective"</span>: <span
+                                    class="text-green-400">"To engineer resilient, high-performance backend
+                                    architectures that drive real-world impact."</span><br>
+                                <span class="text-brand-accent font-bold">}</span>
+                            </div>
+
+                            <!-- Run Architecture Button -->
+                            <div class="mt-6 pt-4 border-t border-gray-800 flex flex-col items-center md:items-start gap-2">
+                                <span class="text-xs text-gray-600 font-mono tracking-widest uppercase">// execute architecture analyzer</span>
+                                <button onclick="executeArchitecture()"
+                                    class="cyber-glow-btn btn-blue px-4 py-2 rounded-xl font-mono font-bold text-xs flex items-center gap-2">
+                                    <i class="fas fa-microchip text-xs group-hover:rotate-12 transition-transform duration-300"></i>
+                                    <span>▶&nbsp; Run architecture_analyzer.sh</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Avatar Removed -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section id="skills" class="py-24 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto fade-in-section">
+            <div
+                class="bg-[#0A0E17]/90 p-5 md:p-8 rounded-xl border border-gray-800 shadow-[0_0_20px_rgba(0,0,0,0.8)] font-mono text-sm md:text-base leading-relaxed group hover:border-brand-accent/30 transition-colors w-full max-w-full overflow-hidden">
+                <div class="flex items-center mb-6 border-b border-gray-800 pb-4 space-x-2">
+                    <i class="fab fa-python text-brand-accent2"></i>
+                    <span class="text-gray-400 text-xs md:text-sm tracking-widest uppercase">skills.py</span>
+                </div>
+                <div class="text-gray-300 overflow-x-auto whitespace-pre w-full max-w-full block">
+                    <span class="text-brand-accent font-bold">class</span> <span
+                        class="text-brand-accent2 font-bold">TechnicalArsenal</span>:
+                    <span class="text-brand-accent font-bold">def</span> <span
+                        class="text-brand-accent2">__init__</span>(<span class="text-orange-400">self</span>):
+                    <span class="text-orange-400">self</span>.skills = {
+                    <span class="text-green-400">"programming_languages"</span>: [<span
+                        class="text-green-400">"Python"</span>, <span class="text-green-400">"SQL"</span>, <span
+                        class="text-green-400">"JavaScript"</span>],
+                    <span class="text-green-400">"backend"</span>: [<span class="text-green-400">"Django"</span>, <span
+                        class="text-green-400">"Django ORM"</span>, <span class="text-green-400">"MVC/MVT
+                        Architecture"</span>],
+                    <span class="text-green-400">"frontend"</span>: [<span class="text-green-400">"HTML5"</span>, <span
+                        class="text-green-400">"CSS3"</span>, <span class="text-green-400">"JavaScript"</span>, <span
+                        class="text-green-400">"Responsive Web Design"</span>],
+                    <span class="text-green-400">"databases"</span>: [<span class="text-green-400">"MySQL"</span>, <span
+                        class="text-green-400">"SQLite (Joins, Subqueries, DDL, DML)"</span>],
+                    <span class="text-green-400">"core_concepts"</span>: [<span class="text-green-400">"OOP"</span>,
+                    <span class="text-green-400">"DSA (Basic)"</span>],
+                    <span class="text-green-400">"tools_and_platforms"</span>: [<span
+                        class="text-green-400">"GitHub"</span>, <span class="text-green-400">"VS Code"</span>, <span
+                        class="text-green-400">"Jupyter Notebook"</span>],
+                    <span class="text-green-400">"apis_and_integration"</span>: [<span class="text-green-400">"REST
+                        APIs"</span>, <span class="text-green-400">"DRF"</span>, <span
+                        class="text-green-400">"JSON"</span>, <span class="text-green-400">"JWT"</span>, <span
+                        class="text-green-400">"Auth"</span>, <span class="text-green-400">"Razorpay"</span>],
+                    <span class="text-green-400">"testing_and_deployment"</span>: [<span class="text-green-400">"Unit
+                        Testing"</span>, <span class="text-green-400">"PythonAnywhere"</span>, <span
+                        class="text-green-400">"Render"</span>, <span class="text-green-400">"Celery"</span>, <span
+                        class="text-green-400">"Redis"</span>]
+                    }
+                </div>
+
+                <!-- Execution Button -->
+                <div class="mt-10 pt-6 border-t border-gray-800 flex flex-col items-center justify-center gap-3">
+                    <span class="text-xs text-gray-600 font-mono tracking-widest uppercase">// run to view skills
+                        dashboard</span>
+                    <button onclick="executeSkills()" id="execute-skills-btn" class="cyber-glow-btn btn-cyan px-6 py-2.5 rounded-xl font-mono font-bold text-sm flex items-center gap-2">
+                        <i class="fas fa-terminal text-xs group-hover:rotate-12 transition-transform duration-300"></i>
+                        <span>▶&nbsp; Execute skills.py</span>
+                    </button>
+                    <span id="skills-status" class="text-xs text-gray-500 italic hidden">Compiling
+                        dependencies...</span>
+                </div>
+
+                <!-- Visual Skills Output (Hidden by default) -->
+                <div id="visual-skills" class="hidden mt-6 pt-6 border-t border-gray-800">
+                    <div class="text-gray-400 text-xs mb-6 uppercase tracking-widest flex items-center"><i
+                            class="fas fa-check-circle text-green-400 mr-2"></i> Build Successful. Rendering Technical
+                        Arsenal...</div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                        <!-- Programming -->
+                        <div
+                            class="glass p-5 rounded-xl border border-white/5 hover:border-brand-accent/50 transition-colors">
+                            <h4 class="text-brand-accent font-bold mb-3 text-sm tracking-wide uppercase"><i
+                                    class="fas fa-code mr-2"></i>Programming</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-brand-accent transition-colors">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg"
+                                        class="w-4 h-4 mr-2" alt="Python"> Python
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-brand-accent transition-colors">
+                                    <i class="fas fa-database text-blue-400 mr-2 text-sm"></i> SQL
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-brand-accent transition-colors">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
+                                        class="w-4 h-4 mr-2" alt="JavaScript"> JavaScript
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Backend -->
+                        <div
+                            class="glass p-5 rounded-xl border border-white/5 hover:border-brand-accent2/50 transition-colors">
+                            <h4 class="text-brand-accent2 font-bold mb-3 text-sm tracking-wide uppercase"><i
+                                    class="fas fa-server mr-2"></i>Backend</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-brand-accent2 transition-colors">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/django/django-plain.svg"
+                                        class="w-4 h-4 mr-2 filter invert opacity-80" alt="Django"> Django
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-brand-accent2 transition-colors">
+                                    <i class="fas fa-database text-brand-accent2 mr-2 text-sm"></i> Django ORM
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-brand-accent2 transition-colors">
+                                    <i class="fas fa-sitemap text-gray-400 mr-2 text-sm"></i> MVC/MVT Architecture
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Frontend -->
+                        <div
+                            class="glass p-5 rounded-xl border border-white/5 hover:border-blue-400/50 transition-colors">
+                            <h4 class="text-blue-400 font-bold mb-3 text-sm tracking-wide uppercase"><i
+                                    class="fas fa-desktop mr-2"></i>Frontend</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-blue-400 transition-colors">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg"
+                                        class="w-4 h-4 mr-2" alt="HTML5"> HTML5
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-blue-400 transition-colors">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg"
+                                        class="w-4 h-4 mr-2" alt="CSS3"> CSS3
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-blue-400 transition-colors">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg"
+                                        class="w-4 h-4 mr-2" alt="JavaScript"> JavaScript
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-blue-400 transition-colors">
+                                    <i class="fas fa-mobile-alt text-blue-400 mr-2 text-sm"></i> Responsive Design
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Databases -->
+                        <div
+                            class="glass p-5 rounded-xl border border-white/5 hover:border-yellow-400/50 transition-colors">
+                            <h4 class="text-yellow-400 font-bold mb-3 text-sm tracking-wide uppercase"><i
+                                    class="fas fa-database mr-2"></i>Databases</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-yellow-400 transition-colors">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg"
+                                        class="w-4 h-4 mr-2" alt="MySQL"> MySQL
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-yellow-400 transition-colors">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg"
+                                        class="w-4 h-4 mr-2" alt="SQLite"> SQLite
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-yellow-400 transition-colors">
+                                    <i class="fas fa-link text-yellow-500 mr-2 text-sm"></i> Joins & Subqueries
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-yellow-400 transition-colors">
+                                    <i class="fas fa-table text-gray-400 mr-2 text-sm"></i> DDL & DML
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- APIs & Backend Tools -->
+                        <div
+                            class="glass p-5 rounded-xl border border-white/5 hover:border-green-400/50 transition-colors">
+                            <h4 class="text-green-400 font-bold mb-3 text-sm tracking-wide uppercase"><i
+                                    class="fas fa-plug mr-2"></i>APIs & Integration</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-green-400 transition-colors">
+                                    <i class="fas fa-exchange-alt text-green-400 mr-2 text-sm"></i> REST APIs
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-green-400 transition-colors">
+                                    <i class="fas fa-cogs text-gray-400 mr-2 text-sm"></i> DRF
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-green-400 transition-colors">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/json/json-original.svg"
+                                        class="w-4 h-4 mr-2" alt="JSON"> JSON
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-green-400 transition-colors">
+                                    <i class="fas fa-key text-yellow-400 mr-2 text-sm"></i> JWT
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-green-400 transition-colors">
+                                    <i class="fas fa-shield-alt text-blue-400 mr-2 text-sm"></i> Auth
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-green-400 transition-colors">
+                                    <i class="fas fa-credit-card text-indigo-400 mr-2 text-sm"></i> Razorpay
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Testing & Deployment -->
+                        <div
+                            class="glass p-5 rounded-xl border border-white/5 hover:border-red-400/50 transition-colors">
+                            <h4 class="text-red-400 font-bold mb-3 text-sm tracking-wide uppercase"><i
+                                    class="fas fa-rocket mr-2"></i>Testing & Deploy</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-red-400 transition-colors">
+                                    <i class="fas fa-vial text-purple-400 mr-2 text-sm"></i> Unit Testing
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-red-400 transition-colors">
+                                    <i class="fas fa-cloud-upload-alt text-blue-300 mr-2 text-sm"></i> Render
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-red-400 transition-colors">
+                                    <i class="fas fa-server text-gray-400 mr-2 text-sm"></i> PythonAnywhere
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-red-400 transition-colors">
+                                    <i class="fas fa-tasks text-green-300 mr-2 text-sm"></i> Celery
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-red-400 transition-colors">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/redis/redis-original.svg"
+                                        class="w-4 h-4 mr-2" alt="Redis"> Redis
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Core Concepts & Tools -->
+                        <div
+                            class="glass p-5 rounded-xl border border-white/5 hover:border-purple-400/50 transition-colors md:col-span-2">
+                            <h4 class="text-purple-400 font-bold mb-3 text-sm tracking-wide uppercase"><i
+                                    class="fas fa-brain mr-2"></i>Core Concepts & Tools</h4>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-purple-400 transition-colors">
+                                    <i class="fas fa-cubes text-blue-400 mr-2 text-sm"></i> Object-Oriented Programming
+                                    (OOP)
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-purple-400 transition-colors">
+                                    <i class="fas fa-network-wired text-green-400 mr-2 text-sm"></i> Data Structures &
+                                    Algorithms
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-purple-400 transition-colors">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg"
+                                        class="w-4 h-4 mr-2 filter invert" alt="GitHub"> GitHub
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-purple-400 transition-colors">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg"
+                                        class="w-4 h-4 mr-2" alt="VS Code"> VS Code
+                                </span>
+                                <span
+                                    class="flex items-center px-3 py-1.5 bg-gray-800 rounded-md text-xs text-gray-300 border border-gray-700 hover:border-purple-400 transition-colors">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jupyter/jupyter-original.svg"
+                                        class="w-4 h-4 mr-2" alt="Jupyter Notebook"> Jupyter Notebook
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="py-24 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto fade-in-section">
+            <div
+                class="bg-[#0A0E17]/90 p-5 md:p-8 rounded-xl border border-gray-800 shadow-[0_0_20px_rgba(0,0,0,0.8)] font-mono text-sm md:text-base leading-relaxed group hover:border-brand-accent/30 transition-colors w-full max-w-full overflow-hidden">
+                <div class="flex items-center mb-6 border-b border-gray-800 pb-4 space-x-2">
+                    <i class="fab fa-python text-brand-accent2"></i>
+                    <span class="text-gray-400 text-xs md:text-sm tracking-widest uppercase">internships.py</span>
+                </div>
+                <div class="text-gray-300 overflow-x-auto whitespace-pre w-full max-w-full block">
+                    <span class="text-brand-accent2 font-bold">internships</span> = [
+                    {
+                    <span class="text-green-400">"role"</span>: <span class="text-orange-400">"Data Science Intern"</span>,
+                    <span class="text-green-400">"company"</span>: <span class="text-orange-400">"BIST Technologies Pvt. Ltd"</span>,
+                    <span class="text-green-400">"date"</span>: <span class="text-orange-400">"Feb 2025"</span>,
+                    <span class="text-green-400">"location"</span>: <span class="text-orange-400">"Vijayawada"</span>,
+                    <span class="text-green-400">"details"</span>: [
+                    <span class="text-orange-400">"Used Python to clean, process, and transform large datasets."</span>,
+                    <span class="text-orange-400">"Developed reusable Python scripts that reduced manual effort by 40%."</span>,
+                    <span class="text-orange-400">"Performed SQL-based data extraction and validation."</span>
+                    ]
+                    },
+                    {
+                    <span class="text-green-400">"role"</span>: <span class="text-orange-400">"MATLAB Simulation Intern"</span>,
+                    <span class="text-green-400">"company"</span>: <span class="text-orange-400">"DRDO, Ministry of Defence"</span>,
+                    <span class="text-green-400">"date"</span>: <span class="text-orange-400">"May 2024"</span>,
+                    <span class="text-green-400">"location"</span>: <span class="text-orange-400">"Hyderabad"</span>,
+                    <span class="text-green-400">"details"</span>: [
+                    <span class="text-orange-400">"Developed and validated BLDC Motor simulation models using MATLAB/Simulink."</span>,
+                    <span class="text-orange-400">"Analyzed performance across conditions, increasing model accuracy by 18%."</span>,
+                    <span class="text-orange-400">"Followed structured testing and validation workflows."</span>
+                    ]
+                    }
+                    ]
+                </div>
+
+                <!-- Execution Button -->
+                <div class="mt-10 pt-6 border-t border-gray-800 flex flex-col items-center justify-center gap-3">
+                    <span class="text-xs text-gray-600 font-mono tracking-widest uppercase"># execute to view timeline</span>
+                    <button onclick="executeInternships()" id="execute-internships-btn" class="cyber-glow-btn btn-blue px-6 py-2.5 rounded-xl font-mono font-bold text-sm flex items-center gap-2">
+                        <i class="fab fa-python text-xs group-hover:rotate-12 transition-transform duration-300"></i>
+                        <span>▶&nbsp; Execute internships.py</span>
+                    </button>
+                    <span id="internships-status" class="text-xs text-gray-500 italic hidden">Executing python...</span>
+                </div>
+
+                <!-- Visual Internships Output (Hidden by default) -->
+                <div id="visual-internships" class="hidden mt-6 pt-6 border-t border-gray-800">
+                    <div class="text-gray-400 text-xs mb-4 uppercase tracking-widest flex items-center"><i
+                            class="fas fa-check-circle text-green-400 mr-2"></i> Data Parsed. Rendering Timeline...
+                    </div>
+                    <div class="relative border-l border-gray-700 ml-3 md:ml-0 md:border-none space-y-8 mt-4">
+                        <!-- Experience Item 1 -->
+                        <div class="relative pl-8 md:pl-0 group">
+                            <div
+                                class="hidden md:block absolute left-1/2 -ml-0.5 w-px h-full bg-gray-700 transition-all duration-500 group-hover:bg-brand-accent">
+                            </div>
+                            <div class="md:flex items-center justify-between w-full">
+                                <div class="md:w-5/12 mb-4 md:mb-0 md:text-right pr-0 md:pr-8">
+                                    <h3 class="text-lg font-bold text-white">Data Science Intern</h3>
+                                    <div class="text-brand-accent font-medium mb-1">BIST Technologies Pvt. Ltd</div>
+                                    <div class="text-sm text-gray-500 font-mono">Feb 2025 | Vijayawada</div>
+                                </div>
+                                <div
+                                    class="absolute left-[-20px] top-[2px] md:static md:w-2/12 flex justify-center items-center z-10">
+                                    <div class="relative flex items-center justify-center w-8 h-8">
+                                        <span
+                                            class="absolute inline-flex h-6 w-6 rounded-full border-2 border-brand-accent/50 bg-[#0B0F19]"></span>
+                                        <span
+                                            class="relative inline-flex rounded-full h-2 w-2 bg-brand-accent shadow-[0_0_10px_rgba(6,182,212,0.8)]"></span>
+                                    </div>
+                                </div>
+                                <div class="md:w-5/12 pl-0 md:pl-8">
+                                    <div class="glass p-5">
+                                        <ul class="list-none space-y-2 text-gray-400 text-xs">
+                                            <li class="flex items-start"><i
+                                                    class="fas fa-chevron-right text-brand-accent text-[10px] mt-1 mr-2 flex-shrink-0"></i><span>Used
+                                                    Python to clean, process, and transform large datasets.</span></li>
+                                            <li class="flex items-start"><i
+                                                    class="fas fa-chevron-right text-brand-accent text-[10px] mt-1 mr-2 flex-shrink-0"></i><span>Developed
+                                                    reusable Python scripts that reduced manual effort by 40%.</span>
+                                            </li>
+                                            <li class="flex items-start"><i
+                                                    class="fas fa-chevron-right text-brand-accent text-[10px] mt-1 mr-2 flex-shrink-0"></i><span>Performed
+                                                    SQL-based data extraction and validation.</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Experience Item 2 -->
+                        <div class="relative pl-8 md:pl-0 group">
+                            <div
+                                class="hidden md:block absolute left-1/2 -ml-0.5 w-px h-full bg-gray-700 transition-all duration-500 group-hover:bg-brand-accent2">
+                            </div>
+                            <div class="md:flex items-center justify-between w-full flex-row-reverse">
+                                <div class="md:w-5/12 mb-4 md:mb-0 pl-0 md:pl-8">
+                                    <h3 class="text-lg font-bold text-white">MATLAB Simulation Intern</h3>
+                                    <div class="text-brand-accent2 font-medium mb-1">DRDO, Ministry of Defence</div>
+                                    <div class="text-sm text-gray-500 font-mono">May 2024 | Hyderabad</div>
+                                </div>
+                                <div
+                                    class="absolute left-[-20px] top-[2px] md:static md:w-2/12 flex justify-center items-center z-10">
+                                    <div class="relative flex items-center justify-center w-8 h-8">
+                                        <span
+                                            class="absolute inline-flex h-6 w-6 rounded-full border-2 border-brand-accent2/50 bg-[#0B0F19]"></span>
+                                        <span
+                                            class="relative inline-flex rounded-full h-2 w-2 bg-brand-accent2 shadow-[0_0_10px_rgba(59,130,246,0.8)]"></span>
+                                    </div>
+                                </div>
+                                <div class="md:w-5/12 pr-0 md:pr-8 md:text-right">
+                                    <div class="glass p-5 md:text-left">
+                                        <ul class="list-none space-y-2 text-gray-400 text-xs">
+                                            <li class="flex items-start"><i
+                                                    class="fas fa-chevron-right text-brand-accent2 text-[10px] mt-1 mr-2 flex-shrink-0"></i><span>Developed
+                                                    and validated BLDC Motor simulation models using
+                                                    MATLAB/Simulink.</span></li>
+                                            <li class="flex items-start"><i
+                                                    class="fas fa-chevron-right text-brand-accent2 text-[10px] mt-1 mr-2 flex-shrink-0"></i><span>Analyzed
+                                                    performance across conditions, increasing model accuracy by
+                                                    18%.</span></li>
+                                            <li class="flex items-start"><i
+                                                    class="fas fa-chevron-right text-brand-accent2 text-[10px] mt-1 mr-2 flex-shrink-0"></i><span>Followed
+                                                    structured testing and validation workflows.</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-24 px-4 sm:px-6 lg:px-8 min-h-screen">
+        <div class="max-w-4xl mx-auto fade-in-section">
+            <div
+                class="bg-[#0A0E17]/90 p-5 md:p-8 rounded-xl border border-gray-800 shadow-[0_0_20px_rgba(0,0,0,0.8)] font-mono text-sm md:text-base leading-relaxed group hover:border-brand-accent/30 transition-colors w-full max-w-full overflow-hidden">
+                <div class="flex items-center mb-6 border-b border-gray-800 pb-4 space-x-2">
+                    <i class="fab fa-python text-brand-accent"></i>
+                    <span class="text-gray-400 text-xs md:text-sm tracking-widest uppercase">projects.py</span>
+                </div>
+                <div class="text-gray-300 overflow-x-auto whitespace-pre w-full max-w-full block">
+                    <span class="text-brand-accent font-bold">def</span> <span
+                        class="text-brand-accent2">get_portfolio_projects</span>():
+                    <span class="text-brand-accent font-bold">return</span> [
+                    {
+                    <span class="text-green-400">"title"</span>: <span class="text-orange-400">"Farm Direct Web App"</span>,
+                    <span class="text-green-400">"category"</span>: <span class="text-orange-400">"Full Stack / E-Commerce"</span>,
+                    <span class="text-green-400">"tech_stack"</span>: [<span class="text-orange-400">"Django 5.1"</span>, <span class="text-orange-400">"Celery & Redis"</span>, <span class="text-orange-400">"DRF"</span>, <span class="text-orange-400">"MySQL"</span>],
+                    <span class="text-green-400">"github"</span>: <span class="text-orange-400">"https://github.com/harish232/FarmDirect"</span>,
+                    <span class="text-green-400">"description"</span>: <span class="text-orange-400">"A multi-role farm-to-customer platform with 12+ Django ORM models and real-time GPS tracking using Celery and Redis."</span>
+                    },
+                    {
+                    <span class="text-green-400">"title"</span>: <span class="text-orange-400">"Akhil Sports E-Commerce"</span>,
+                    <span class="text-green-400">"category"</span>: <span class="text-orange-400">"Full Stack / API Integration"</span>,
+                    <span class="text-green-400">"tech_stack"</span>: [<span class="text-orange-400">"Node.js"</span>, <span class="text-orange-400">"Express.js"</span>, <span class="text-orange-400">"Vanilla JS"</span>, <span class="text-orange-400">"JWT Auth"</span>],
+                    <span class="text-green-400">"github"</span>: <span class="text-orange-400">"https://github.com/harish232/Akhil-sports"</span>,
+                    <span class="text-green-400">"description"</span>: <span class="text-orange-400">"An event-driven sports e-commerce application with offline-first fallback using localStorage and a mock payment gateway."</span>
+                    }
+                    ]
+                </div>
+
+                <!-- Execution Button -->
+                <div class="mt-10 pt-6 border-t border-gray-800 flex flex-col items-center justify-center gap-3">
+                    <span class="text-xs text-gray-600 font-mono tracking-widest uppercase"># execute to run dashboard</span>
+                    <button onclick="executeProjects()" id="execute-projects-btn" class="cyber-glow-btn btn-green px-6 py-2.5 rounded-xl font-mono font-bold text-sm flex items-center gap-2">
+                        <i class="fab fa-python text-xs group-hover:rotate-12 transition-transform duration-300"></i>
+                        <span>▶&nbsp; Execute projects.py</span>
+                    </button>
+                    <span id="projects-status" class="text-xs text-gray-500 italic hidden">Running Python interpreter...</span>
+                </div>
+
+                <!-- Visual Projects Output (Hidden by default) -->
+                <div id="visual-projects" class="hidden mt-6 pt-6 border-t border-gray-800">
+                    <div class="text-gray-400 text-xs mb-4 uppercase tracking-widest flex items-center"><i
+                            class="fas fa-check-circle text-green-400 mr-2"></i> Build Successful. Rendering
+                        Components...</div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+                        <!-- Project 1 -->
+                        <div
+                            class="glass flex flex-col h-full overflow-hidden group border border-white/5 hover:border-green-400/50 transition-colors">
+                            <div class="h-1 bg-gradient-to-r from-green-400 to-brand-accent"></div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <div class="flex justify-between items-start mb-3">
+                                    <div>
+                                        <span class="text-[10px] font-mono text-gray-400 block uppercase">Full Stack /
+                                            E-Commerce</span>
+                                        <h3
+                                            class="text-lg font-bold text-white group-hover:text-green-400 transition-colors">
+                                            Farm Direct Web App</h3>
+                                    </div>
+                                    <a href="https://github.com/harish232/FarmDirect" target="_blank"
+                                        class="text-gray-500 hover:text-white transition-colors"><i
+                                            class="fab fa-github text-lg"></i></a>
+                                </div>
+                                <p class="text-gray-400 text-xs mb-4 flex-grow leading-relaxed">A multi-role
+                                    farm-to-customer e-commerce platform supporting 4 user types. Features 12+ Django
+                                    ORM models, Razorpay integration, and real-time GPS tracking.</p>
+                                <div class="flex flex-wrap gap-1 mt-auto">
+                                    <span class="px-2 py-0.5 bg-gray-800 rounded-sm text-[10px] text-gray-300">Django
+                                        5.1</span>
+                                    <span class="px-2 py-0.5 bg-gray-800 rounded-sm text-[10px] text-gray-300">Celery &
+                                        Redis</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-gray-800 rounded-sm text-[10px] text-gray-300">DRF</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Project 2 -->
+                        <div
+                            class="glass flex flex-col h-full overflow-hidden group border border-white/5 hover:border-blue-400/50 transition-colors">
+                            <div class="h-1 bg-gradient-to-r from-blue-400 to-indigo-500"></div>
+                            <div class="p-6 flex flex-col flex-grow">
+                                <div class="flex justify-between items-start mb-3">
+                                    <div>
+                                        <span class="text-[10px] font-mono text-gray-400 block uppercase">Full Stack /
+                                            API Integration</span>
+                                        <h3
+                                            class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">
+                                            Akhil Sports E-Commerce</h3>
+                                    </div>
+                                    <a href="https://github.com/harish232/Akhil-sports" target="_blank"
+                                        class="text-gray-500 hover:text-white transition-colors"><i
+                                            class="fab fa-github text-lg"></i></a>
+                                </div>
+                                <p class="text-gray-400 text-xs mb-4 flex-grow leading-relaxed">An event-driven sports
+                                    e-commerce application. Implemented parallel notifications, an offline-first
+                                    fallback using localStorage, and a mock payment gateway.</p>
+                                <div class="flex flex-wrap gap-1 mt-auto">
+                                    <span
+                                        class="px-2 py-0.5 bg-gray-800 rounded-sm text-[10px] text-gray-300">Node.js</span>
+                                    <span
+                                        class="px-2 py-0.5 bg-gray-800 rounded-sm text-[10px] text-gray-300">Express.js</span>
+                                    <span class="px-2 py-0.5 bg-gray-800 rounded-sm text-[10px] text-gray-300">Vanilla
+                                        JS</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications" class="spa-section py-24 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto fade-in-section">
+            <div
+                class="bg-[#0A0E17]/90 p-5 md:p-8 rounded-xl border border-gray-800 shadow-[0_0_20px_rgba(0,0,0,0.8)] font-mono text-sm md:text-base leading-relaxed group hover:border-brand-accent/30 transition-colors w-full max-w-full overflow-hidden">
+                <div class="flex items-center mb-6 border-b border-gray-800 pb-4 space-x-2">
+                    <i class="fab fa-python text-brand-accent2"></i>
+                    <span class="text-gray-400 text-xs md:text-sm tracking-widest uppercase">certifications.py</span>
+                </div>
+                <div class="text-gray-300 overflow-x-auto whitespace-pre w-full max-w-full block">
+                    <span class="text-brand-accent2">certification_info</span> = {
+                    <span class="text-green-400">"certification"</span>: <span class="text-orange-400">"Deloitte Virtual Experience"</span>,
+                    <span class="text-green-400">"issuer"</span>: <span class="text-orange-400">"Deloitte"</span>,
+                    <span class="text-green-400">"type"</span>: <span class="text-orange-400">"Technology Consulting Virtual Internship (Forage)"</span>,
+                    <span class="text-green-400">"skills_acquired"</span>: [
+                    <span class="text-orange-400">"Client Discovery"</span>,
+                    <span class="text-orange-400">"Technical Architecture Planning"</span>,
+                    <span class="text-orange-400">"Proposal Development"</span>,
+                    <span class="text-orange-400">"Cloud Engineering Strategies"</span>
+                    ]
+                    }
+                </div>
+
+                <!-- Execution Button -->
+                <div class="mt-10 pt-6 border-t border-gray-800 flex flex-col items-center justify-center gap-3">
+                    <span class="text-xs text-gray-600 font-mono tracking-widest uppercase"># execute to view certifications</span>
+                    <button onclick="executeCertifications()" id="execute-certifications-btn" class="cyber-glow-btn btn-yellow px-6 py-2.5 rounded-xl font-mono font-bold text-sm flex items-center gap-2">
+                        <i class="fab fa-python text-xs group-hover:rotate-12 transition-transform duration-300"></i>
+                        <span>▶&nbsp; Execute certifications.py</span>
+                    </button>
+                    <span id="certifications-status" class="text-xs text-gray-500 italic hidden">Executing python...</span>
+                </div>
+
+                <!-- Visual Certifications Output (Hidden by default) -->
+                <div id="visual-certifications" class="hidden mt-6 pt-6 border-t border-gray-800">
+                    <div class="text-gray-400 text-xs mb-4 uppercase tracking-widest flex items-center"><i
+                            class="fas fa-check-circle text-green-400 mr-2"></i> Data Parsed. Rendering Certificates...
+                    </div>
+                    <div class="mt-4">
+                        <div
+                            class="glass p-6 rounded-xl border border-white/5 hover:border-brand-accent2/50 transition-colors duration-300 relative overflow-hidden group max-w-2xl mx-auto">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-r from-brand-accent2/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            </div>
+                            <div class="flex items-center mb-4 relative z-10">
+                                <div
+                                    class="mr-4 flex-shrink-0 bg-white px-2 py-1 rounded-md shadow-md flex items-center justify-center">
+                                    <span class="font-bold text-black tracking-tight text-sm"
+                                        style="font-family: 'Inter', Arial, sans-serif;">
+                                        Deloitte<span class="text-[#86BC25]">.</span>
+                                    </span>
+                                </div>
+                                <div>
+                                    <h3
+                                        class="text-lg font-bold text-white group-hover:text-brand-accent2 transition-colors">
+                                        Deloitte Virtual Experience</h3>
+                                    <div class="text-xs text-gray-400 mt-1">Technology Consulting Virtual Internship
+                                        (Forage)</div>
+                                </div>
+                            </div>
+                            <ul
+                                class="list-none space-y-2 text-gray-400 text-xs relative z-10 pl-2 border-l-2 border-brand-accent2/20">
+                                <li class="flex items-start"><i
+                                        class="fas fa-chevron-right text-brand-accent2 text-[10px] mt-1 mr-2 flex-shrink-0"></i><span>Completed
+                                        practical modules focused on technology consulting and cloud engineering
+                                        strategies.</span></li>
+                                <li class="flex items-start"><i
+                                        class="fas fa-chevron-right text-brand-accent2 text-[10px] mt-1 mr-2 flex-shrink-0"></i><span>Developed
+                                        skills in client discovery, technical architecture planning, and proposal
+                                        development.</span></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 relative">
+        <div class="max-w-3xl mx-auto fade-in-section">
+            <div
+                class="bg-[#0A0E17]/90 p-5 md:p-8 rounded-xl border border-gray-800 shadow-[0_0_20px_rgba(0,0,0,0.8)] font-mono text-sm md:text-base leading-relaxed transition-colors w-full">
+                <div class="flex items-center mb-6 border-b border-gray-800 pb-4 space-x-2">
+                    <i class="fas fa-terminal text-brand-accent"></i>
+                    <span class="text-gray-400 text-xs md:text-sm tracking-widest uppercase">bash</span>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="flex items-center text-gray-300">
+                        <span class="text-green-400 mr-2">harish@portfolio:~$</span>
+                        <span class="text-brand-accent">./send_message.sh</span>
+                    </div>
+
+                    <form id="contactForm" onsubmit="handleContactSubmit(event)"
+                        class="space-y-4 text-gray-300 pl-4 border-l-2 border-gray-800">
+                        <div class="flex items-center">
+                            <label for="name" class="w-24 text-gray-500 text-sm">--name</label>
+                            <input type="text" id="name" required
+                                class="flex-1 bg-transparent border-b border-gray-700 focus:border-brand-accent focus:outline-none text-green-400 py-1 text-base"
+                                placeholder="<enter_name>">
+                        </div>
+                        <div class="flex items-center">
+                            <label for="email" class="w-24 text-gray-500 text-sm">--email</label>
+                            <input type="email" id="email" required
+                                class="flex-1 bg-transparent border-b border-gray-700 focus:border-brand-accent focus:outline-none text-green-400 py-1 text-base"
+                                placeholder="<enter_email>">
+                        </div>
+                        <div class="flex items-start">
+                            <label for="message" class="w-24 text-gray-500 text-sm mt-2">--body</label>
+                            <textarea id="message" rows="3" required
+                                class="flex-1 bg-transparent border-b border-gray-700 focus:border-brand-accent focus:outline-none text-green-400 py-1 resize-none text-base"
+                                placeholder="<type_message>"></textarea>
+                        </div>
+
+                        <div class="pt-4 flex items-center group cursor-pointer">
+                            <span
+                                class="text-green-400 mr-2 opacity-0 group-hover:opacity-100 transition-opacity">►</span>
+                            <button type="submit"
+                                class="text-brand-accent font-bold hover:text-white transition-colors">
+                                [ Execute Transmission ]
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Custom Success Message (Hidden by default) -->
+                    <div id="successMessage" class="hidden mt-4 pl-4 border-l-2 border-brand-accent text-brand-accent">
+                        [SUCCESS] Message transmitted to harishbabu.yg@gmail.com
+                    </div>
+
+                    <!-- Direct Contact Details -->
+                    <div class="mt-6 pt-6 border-t border-gray-800/60 flex flex-wrap gap-x-8 gap-y-3 text-xs text-gray-500 font-mono">
+                        <span class="flex items-center gap-2 hover:text-brand-accent transition-colors">
+                            <i class="fas fa-envelope text-brand-accent"></i>
+                            yarraguntlaharishbabu@gmail.com
+                        </span>
+                        <a href="tel:+918088886368" class="flex items-center gap-2 hover:text-emerald-400 transition-colors">
+                            <i class="fas fa-phone-alt text-emerald-400"></i>
+                            +91 8088886368
+                        </a>
+                    </div>
+
+                    <!-- Admin / Upload Option -->
+                    <div class="mt-4 pt-4 border-t border-gray-800/40 flex items-center gap-2">
+                        <label class="cursor-pointer text-[10px] text-gray-500 hover:text-brand-accent font-mono transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-1.5 border border-dashed border-gray-800 hover:border-brand-accent/50 px-3 py-1.5 rounded-lg bg-black/20 hover:bg-brand-accent/5 hover:shadow-[0_0_12px_rgba(6,182,212,0.1)] group">
+                            <i class="fas fa-upload text-[9px] group-hover:animate-bounce"></i>
+                            <span>[ Upload Custom Resume ]</span>
+                            <input type="file" id="resume-upload" accept=".pdf" class="hidden" onchange="handleResumeUpload(event)">
+                        </label>
+                        <span id="upload-status" class="text-[10px] text-green-400 font-mono hidden"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="border-t border-white/5 py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="font-display font-bold text-lg text-white">
+                HB<span class="text-brand-accent">.</span>
+            </div>
+
+            <div class="flex space-x-6">
+                <a href="mailto:harishbabu.yg@gmail.com" class="text-gray-400 hover:text-brand-accent transition-colors"
+                    title="Email">
+                    <i class="fas fa-envelope text-xl"></i>
+                </a>
+                <a href="https://linkedin.com/in/HarishBabu25" target="_blank"
+                    class="text-gray-400 hover:text-blue-500 transition-colors" title="LinkedIn">
+                    <i class="fab fa-linkedin text-xl"></i>
+                </a>
+                <a href="https://github.com/harish232" target="_blank"
+                    class="text-gray-400 hover:text-white transition-colors" title="GitHub">
+                    <i class="fab fa-github text-xl"></i>
+                </a>
+                <a href="tel:+918088886368" class="text-gray-400 hover:text-emerald-400 transition-colors"
+                    title="Phone">
+                    <i class="fas fa-phone-alt text-xl"></i>
+                </a>
+            </div>
+
+            <div class="text-sm text-gray-500">
+                &copy; <span id="year"></span> Harish Babu Yarraguntla. Built with precision.
+            </div>
+        </div>
+    </footer>
+
+    <!-- AI Pitch Generator Modal -->
+    <div id="pitch-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-sm" onclick="closePitchModal()"></div>
+        <div class="glass relative w-full max-w-lg p-6 md:p-8 transform scale-95 opacity-0 transition-all duration-300 max-h-[95vh] overflow-y-auto"
+            id="pitch-modal-content">
+            <button onclick="closePitchModal()"
+                class="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-6">
+                <div
+                    class="w-10 h-10 rounded-full bg-brand-accent2/20 flex items-center justify-center border border-brand-accent2/50">
+                    <i class="fas fa-wand-magic-sparkles text-brand-accent2"></i>
+                </div>
+                <div>
+                    <h3 class="text-2xl font-display font-bold text-white">AI Pitch Generator</h3>
+                    <p class="text-sm text-gray-400">Powered by Gemini AI</p>
+                </div>
+            </div>
+
+            <div id="pitch-form-container">
+                <p class="text-gray-300 text-sm mb-6">Enter a target role and company. My AI will generate a
+                    personalized 3-sentence pitch highlighting why my EEE to Software background is the perfect fit.</p>
+
+                <div class="space-y-4 mb-6">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Target Role</label>
+                        <input type="text" id="pitch-role"
+                            class="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white input-glow transition-all duration-300 text-base"
+                            placeholder="e.g. Backend Engineer">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Company Name</label>
+                        <input type="text" id="pitch-company"
+                            class="w-full bg-gray-900/50 border border-gray-700 rounded-lg px-4 py-3 text-white input-glow transition-all duration-300 text-base"
+                            placeholder="e.g. Google">
+                    </div>
+                </div>
+
+                <button onclick="generatePitch()" id="generate-pitch-btn"
+                    class="w-full bg-brand-accent2 text-brand-dark font-bold py-3 rounded-lg transition-all duration-300 hover:shadow-[0_0_20px_rgba(139,92,246,0.5)] flex justify-center items-center gap-2">
+                    Generate Pitch <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+
+            <div id="pitch-result-container" class="hidden flex-col h-full">
+                <div class="bg-gray-900/60 border border-gray-700 rounded-lg p-5 mb-6 relative">
+                    <i class="fas fa-quote-left text-brand-accent2/20 text-4xl absolute top-2 left-2"></i>
+                    <p id="pitch-result-text"
+                        class="text-gray-200 text-sm leading-relaxed relative z-10 min-h-[80px] italic">
+                        Generating...
+                    </p>
+                </div>
+                <div class="flex gap-3">
+                    <button onclick="resetPitch()"
+                        class="flex-1 border border-gray-600 text-gray-300 hover:bg-gray-800 font-medium py-2.5 rounded-lg transition-all duration-300">
+                        Try Another
+                    </button>
+                    <button onclick="copyPitch()" id="copy-pitch-btn"
+                        class="flex-1 bg-brand-accent2 text-brand-dark font-medium py-2.5 rounded-lg transition-all duration-300 flex items-center justify-center gap-2">
+                        <i class="fas fa-copy"></i> Copy Pitch
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Chat Widget -->
+    <div id="ai-chat-container" class="fixed bottom-6 right-6 z-50 flex flex-col items-end">
+
+        <!-- Chat Window -->
+        <div id="chat-window"
+            class="chat-window glass w-[calc(100vw-3rem)] sm:w-96 h-[500px] max-h-[70vh] mb-4 flex flex-col overflow-hidden rounded-2xl shadow-2xl border border-brand-accent/20">
+            <!-- Header -->
+            <div class="p-4 border-b border-white/10 bg-black/40 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-8 h-8 rounded-full bg-brand-accent/20 flex items-center justify-center border border-brand-accent/50">
+                        <i class="fas fa-robot text-brand-accent"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-medium text-sm">HB.AI Assistant</h3>
+                        <p class="text-xs text-brand-accent flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brand-accent animate-pulse"></span> Online
+                        </p>
+                    </div>
+                </div>
+                <button onclick="toggleChat()" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Messages Area -->
+            <div id="chat-messages" class="chat-messages flex-grow p-4 overflow-y-auto flex flex-col gap-4 bg-black/20">
+                <!-- Welcome Message -->
+                <div
+                    class="msg-ai self-start p-3 rounded-lg max-w-[85%] text-sm text-gray-300 leading-relaxed shadow-sm">
+                    Hello! I'm the AI assistant for Harish. I can answer questions about his experience, projects, or
+                    technical skills. What would you like to know?
+                </div>
+            </div>
+
+            <!-- Typing Indicator (Hidden by default) -->
+            <div id="typing-indicator" class="hidden px-4 pb-2">
+                <div class="msg-ai self-start p-3 rounded-lg w-16 h-10 flex items-center justify-center gap-1">
+                    <div class="w-2 h-2 bg-brand-accent rounded-full typing-dot"></div>
+                    <div class="w-2 h-2 bg-brand-accent rounded-full typing-dot"></div>
+                    <div class="w-2 h-2 bg-brand-accent rounded-full typing-dot"></div>
+                </div>
+            </div>
+
+            <!-- Input Area -->
+            <div class="p-3 border-t border-white/10 bg-black/40">
+                <form id="chat-form" class="flex gap-2" onsubmit="handleChatSubmit(event)">
+                    <input type="text" id="chat-input" placeholder="Ask about Harish..."
+                        class="flex-grow bg-gray-900/50 border border-gray-700 rounded-lg px-3 py-2 text-base text-white focus:outline-none focus:border-brand-accent transition-colors"
+                        autocomplete="off">
+                    <button type="submit" id="chat-submit-btn"
+                        class="bg-brand-accent text-brand-dark w-10 h-10 rounded-lg flex items-center justify-center hover:bg-emerald-400 transition-colors">
+                        <i class="fas fa-paper-plane text-sm"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Chat Toggle Button -->
+        <button onclick="toggleChat()"
+            class="chat-widget-btn w-14 h-14 rounded-full bg-brand-accent text-brand-dark flex items-center justify-center text-xl shadow-lg relative group">
+            <i class="fas fa-comment-dots group-hover:hidden"></i>
+            <i class="fas fa-robot hidden group-hover:block"></i>
+            <!-- Notification Dot -->
+            <span
+                class="absolute top-0 right-0 w-3 h-3 bg-red-500 border-2 border-[#0B0F19] rounded-full animate-pulse"></span>
+        </button>
+    </div>
+
+    <!-- Global Output Modal -->
+    <div id="output-modal" class="fixed inset-0 z-[200] hidden flex-col bg-[#050505]">
+        <!-- Top Bar -->
+        <div class="h-10 border-b border-gray-800 flex items-center justify-between px-4 bg-black/40">
+            <div class="flex items-center space-x-2 text-xs font-mono text-gray-500">
+                <i class="fas fa-terminal text-brand-accent"></i>
+                <span id="output-modal-title">process_running</span>
+            </div>
+            <button onclick="closeOutputModal()"
+                class="text-gray-500 hover:text-red-400 transition-colors px-2 py-1 flex items-center space-x-1 group">
+                <span class="text-xs font-bold font-mono group-hover:text-red-400">[X]</span>
+                <span class="text-xs font-mono uppercase tracking-widest hidden sm:inline">Terminate Process</span>
+                <span class="text-xs font-mono uppercase tracking-widest sm:hidden">Terminate</span>
+            </button>
+        </div>
+
+        <!-- Modal Content Area -->
+        <div class="flex-1 overflow-y-auto p-4 md:p-8 flex flex-col relative w-full h-full">
+            <!-- Terminal Animation Layer -->
+            <div id="output-modal-terminal"
+                class="absolute inset-0 p-4 md:p-12 font-mono text-sm md:text-base leading-relaxed z-10 bg-[#050505] flex flex-col overflow-y-auto">
+                <div class="text-green-400 mb-2">> System override initiated...</div>
+                <div id="output-terminal-text" class="text-gray-300 whitespace-pre-wrap"></div>
+                <div class="animate-pulse w-2 h-4 bg-brand-accent mt-1 inline-block"></div>
+            </div>
+
+            <!-- Visual UI Layer -->
+            <div id="output-modal-content"
+                class="w-full max-w-5xl mx-auto opacity-0 transition-opacity duration-1000 ease-in-out relative z-20 hidden mt-8">
+                <!-- Injected content goes here -->
+            </div>
+        </div>
+    <!-- Custom Mouse Trailer -->
+    <div id="mouse-trailer" class="hidden md:block pointer-events-none fixed top-0 left-0 w-6 h-6 rounded-full border border-brand-accent/50 z-[10000] -translate-x-1/2 -translate-y-1/2"></div>
+    <div id="mouse-dot" class="hidden md:block pointer-events-none fixed top-0 left-0 w-2 h-2 rounded-full bg-brand-accent z-[10000] -translate-x-1/2 -translate-y-1/2"></div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

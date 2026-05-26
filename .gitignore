@@ -1,0 +1,4 @@
+docx_temp/
+*.docx
+.DS_Store
+Thumbs.db
