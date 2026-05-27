@@ -1284,27 +1284,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Detect if pointing device is fine (mouse support)
     if (window.matchMedia('(pointer: fine)').matches) {
+        let lastX = 0;
+        let lastY = 0;
+        let isHovered = false;
+
         document.addEventListener('mousemove', (e) => {
-            const x = e.clientX;
-            const y = e.clientY;
+            lastX = e.clientX;
+            lastY = e.clientY;
             
             // Move dot instantly
-            dot.style.transform = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+            dot.style.transform = `translate3d(${lastX}px, ${lastY}px, 0) translate(-50%, -50%)`;
             
             // Set CSS variables for hover position reference
-            trailer.style.setProperty('--mouse-x', `${x}px`);
-            trailer.style.setProperty('--mouse-y', `${y}px`);
+            trailer.style.setProperty('--mouse-x', `${lastX}px`);
+            trailer.style.setProperty('--mouse-y', `${lastY}px`);
             
             // Move trailer with animate for smooth inertia delay
-            trailer.animate({
-                transform: `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`
-            }, { duration: 150, fill: 'forwards' });
+            if (!trailer.classList.contains('trailer-click')) {
+                const scaleVal = isHovered ? 2 : 1;
+                trailer.animate({
+                    transform: `translate3d(${lastX}px, ${lastY}px, 0) translate(-50%, -50%) scale(${scaleVal})`
+                }, { duration: 150, fill: 'forwards' });
+            }
         });
 
         // Hover expand transitions on hoverable elements
         const hoverables = 'a, button, label, .cursor-pointer, input, textarea';
         document.addEventListener('mouseover', (e) => {
             if (e.target.closest(hoverables)) {
+                isHovered = true;
                 trailer.classList.add('trailer-hover');
                 dot.style.backgroundColor = '#3B82F6';
             }
@@ -1312,9 +1320,38 @@ document.addEventListener('DOMContentLoaded', () => {
         
         document.addEventListener('mouseout', (e) => {
             if (e.target.closest(hoverables)) {
+                isHovered = false;
                 trailer.classList.remove('trailer-hover');
                 dot.style.backgroundColor = '';
             }
+        });
+
+        // Click haptic shrink pulse
+        document.addEventListener('mousedown', () => {
+            trailer.classList.add('trailer-click');
+            const scaleVal = isHovered ? 1.4 : 0.7;
+            trailer.animate({
+                transform: `translate3d(${lastX}px, ${lastY}px, 0) translate(-50%, -50%) scale(${scaleVal})`
+            }, { duration: 50, fill: 'forwards' });
+        });
+
+        document.addEventListener('mouseup', () => {
+            trailer.classList.remove('trailer-click');
+            const scaleVal = isHovered ? 2 : 1;
+            trailer.animate({
+                transform: `translate3d(${lastX}px, ${lastY}px, 0) translate(-50%, -50%) scale(${scaleVal})`
+            }, { duration: 100, fill: 'forwards' });
+        });
+
+        // Hide when mouse leaves document window boundary
+        document.addEventListener('mouseleave', () => {
+            trailer.style.opacity = '0';
+            dot.style.opacity = '0';
+        });
+
+        document.addEventListener('mouseenter', () => {
+            trailer.style.opacity = '1';
+            dot.style.opacity = '1';
         });
     } else {
         // Hide completely on mobile/touch screens
